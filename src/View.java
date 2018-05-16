@@ -61,8 +61,9 @@ public class View extends JFrame implements ActionListener
 		
 
 		//set size
-		guiWidth = 1300;
-		guiHeight = 1000;
+		guiWidth = 1280; //old val: 1300
+		guiHeight = 720; //old val: 1000
+		//1280×720
 
 		//make visible
 		setSize(guiWidth,guiHeight);
@@ -72,7 +73,7 @@ public class View extends JFrame implements ActionListener
 	
 	public void paint(Graphics g)
 	{
-		Image offImage = createImage(1300, 1000);
+		Image offImage = createImage(1280, 720);
 	// Creates an off-screen drawable image to be used for
 	// double buffering; XSIZE, YSIZE are each of type ‘int’;
 	// represents size of JFrame or JPanel, etc
@@ -92,8 +93,11 @@ public class View extends JFrame implements ActionListener
 		g.drawImage(bg, 0, 0, guiWidth, guiHeight, null);
 		
 		//platforms
-		for(Platform plat: level.getPlats())
-			g.drawImage(plat.getType(), (int)plat.getX(), (int)plat.getY(), (int)plat.getWidth(), (int)plat.getHeight(), null);
+		for(Object m: Level.getGameObjects())
+			if(m instanceof Platform)
+			{
+				g.drawImage(((Platform) m).getType(), (int)((Platform)m).getX(), (int)((Platform)m).getY(), (int)((Platform)m).getWidth(), (int)((Platform)m).getHeight(), null);
+			}
 		
 		g.drawImage(uni, 1150, 850, 100, 100, null);
 		g.drawImage(wings, 950, 400, 100, 50, null);
@@ -134,10 +138,12 @@ public class View extends JFrame implements ActionListener
 		else
 			state = 0;
 		
-		for(Platform plat: level.getPlats())
-			if(plat instanceof Cloud)
-				((Cloud) plat).shift();
-		
+		for(Object m: Level.getGameObjects())
+			if(m instanceof Platform)
+			{
+				if(m instanceof Cloud)
+					((Cloud) m).shift();
+			}
 		repaint();
 	}
 

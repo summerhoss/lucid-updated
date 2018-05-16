@@ -32,7 +32,7 @@ public class Player extends Model implements KeyListener {
 	
 	public void run()
 	{
-		ArrayList<Model> collisions = checkCollisions(c.getGameObjects());
+		ArrayList<Model> collisions = checkCollisions(Level.getGameObjects());
 		for(Model m : collisions)
 		{
 			if(this.intersects(m) && (m.getY() - this.getMaxY() <= 1))
@@ -46,15 +46,26 @@ public class Player extends Model implements KeyListener {
 		}
 		if(leftPressed)
 		{
-			
+			this.translate(-4, 0);
 		}
 		else if(rightPressed)
 		{
-			
+			this.translate(4,0);
 		}
 		else if(upPressed)
 		{
-			
+			this.translate(0, 6);
+		}
+		else if(!isOnGround)
+		{
+			if(rightPressed)
+			{
+				this.translate(2, (int)this.getY());
+			}
+			else if(leftPressed)
+			{
+				this.translate(-2, (int)this.getY());
+			}
 		}
 	}
 

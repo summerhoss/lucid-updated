@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 
 public abstract class Model extends Rectangle {
 	Image image;
-	Controller c;
 	/*
 	private int myX;
 	private int myY;
@@ -22,7 +21,6 @@ public abstract class Model extends Rectangle {
 	public Model(int x, int y, int w, int h, String name)
 	{
 		super(x, y, w, h);
-		c = new Controller();
 		/*
 		myX = x;
 		myY = y;
@@ -44,7 +42,7 @@ public abstract class Model extends Rectangle {
 	public void run()
 	{
 		//Possibly remove this code - has been moved to player
-		ArrayList<Model> collisions = checkCollisions(c.getGameObjects());
+		ArrayList<Model> collisions = checkCollisions(Level.getGameObjects());
 		for(Model m : collisions)
 		{
 			if(this.intersects(m) && (m.getY() - this.getMaxY() <= 1))
