@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Controller<E>
+public class Controller
 {
 	protected static Level level1;
 	

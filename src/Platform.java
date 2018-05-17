@@ -11,16 +11,9 @@ public class Platform extends Model
 	{
 		super(x, y, w, h, image);
 		
-		/*
 		ClassLoader cldr = getClass().getClassLoader();
 		
 		ImageIcon platIcon = new ImageIcon(cldr.getResource(image + ".png"));
 		platType = platIcon.getImage();
-		*/
-	}
-	
-	public Image getType()
-	{
-		return platType;
 	}
 }

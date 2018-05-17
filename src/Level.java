@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Level<E>
+public class Level
 {
 	private static ArrayList<Model> gameObjects;
 	
@@ -38,6 +38,7 @@ public class Level<E>
 		gameObjects.add(new Platform(525, 150, 150, 100, "flower"));
 		
 		//create characters and objects
+		gameObjects.add(new Player(100, 100, 50, 100, "char"));
 		
 		//ground
 		for(int x = 0; x < 1300; x += 100)

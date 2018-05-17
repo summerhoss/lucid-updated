@@ -20,6 +20,8 @@ public class View extends JFrame implements ActionListener
 	private Image tree;
 	private Timer timer;
 	private int state;
+	
+	private Image platform;
 
 	public View(Level lv)
 	{
@@ -51,6 +53,8 @@ public class View extends JFrame implements ActionListener
 		ImageIcon treeIcon = new ImageIcon(cldr.getResource("tree.png"));
 		tree = treeIcon.getImage();
 		
+		ImageIcon platformIcon = new ImageIcon(cldr.getResource("platform.png"));
+		platform = platformIcon.getImage();
 		
 		//initialize and start timer
 		timer = new Timer(10, this);
@@ -93,11 +97,10 @@ public class View extends JFrame implements ActionListener
 		g.drawImage(bg, 0, 0, guiWidth, guiHeight, null);
 		
 		//platforms
-		for(Object m: Level.getGameObjects())
-			if(m instanceof Platform)
-			{
-				g.drawImage(((Platform) m).getType(), (int)((Platform)m).getX(), (int)((Platform)m).getY(), (int)((Platform)m).getWidth(), (int)((Platform)m).getHeight(), null);
-			}
+		for(Model m: Level.getGameObjects())
+		{
+			g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
+		}
 		
 		g.drawImage(uni, 1150, 850, 100, 100, null);
 		g.drawImage(wings, 950, 400, 100, 50, null);
@@ -138,12 +141,14 @@ public class View extends JFrame implements ActionListener
 		else
 			state = 0;
 		
-		for(Object m: Level.getGameObjects())
+		for(Model m: Level.getGameObjects())
+		{
 			if(m instanceof Platform)
 			{
 				if(m instanceof Cloud)
 					((Cloud) m).shift();
 			}
+		}
 		repaint();
 	}
 
