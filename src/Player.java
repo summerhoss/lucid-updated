@@ -46,25 +46,25 @@ public class Player extends Model implements KeyListener {
 		}
 		if(leftPressed)
 		{
-			this.translate((int)(this.getX()-4), (int)(this.getY()));
+			this.setLocation((int)(this.getX()-4), (int)(this.getY()));
 		}
 		else if(rightPressed)
 		{
-			this.translate((int)(this.getX()+4), (int)(this.getY()));
+			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
 		}
 		else if(upPressed)
 		{
-			this.translate((int)(this.getX()), (int)(this.getY()+6));
+			this.setLocation((int)(this.getX()), (int)(this.getY()+6));
 		}
 		else if(!isOnGround)
 		{
 			if(leftPressed)
 			{
-				this.translate((int)(this.getX()-2), (int)(this.getY()));
+				this.setLocation((int)(this.getX()-2), (int)(this.getY()));
 			}
 			else if(rightPressed)
 			{
-				this.translate((int)(this.getX()+2), (int)(this.getY()));
+				this.setLocation((int)(this.getX()+2), (int)(this.getY()));
 			}
 		}
 	}
