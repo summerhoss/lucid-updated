@@ -3,10 +3,12 @@ import java.util.*;
 public class Level
 {
 	private static ArrayList<Model> gameObjects;
+	private Player lucy;
 	
 	public Level()
 	{
 		gameObjects = new ArrayList<Model>();
+		lucy = null;
 	}
 	
 	public static ArrayList<Model> getGameObjects()
@@ -38,7 +40,8 @@ public class Level
 		gameObjects.add(new Platform(525, 150, 150, 100, "flower"));
 		
 		//create characters and objects
-		gameObjects.add(new Player(100, 100, 50, 100, "char"));
+		lucy = new Player(100, 100, 50, 100, "char");
+		gameObjects.add(lucy);
 		
 		//ground
 		for(int x = 0; x < 1300; x += 100)
@@ -51,6 +54,11 @@ public class Level
 	public void createLevel2()
 	{
 		
+	}
+	
+	public Player getPlayer()
+	{
+		return lucy;
 	}
 	
 }

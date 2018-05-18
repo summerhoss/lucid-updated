@@ -1,10 +1,12 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
-public class View extends JFrame implements ActionListener
+public class View extends JFrame implements ActionListener, KeyListener
 {
 	private Level level;
 	private int guiWidth;
@@ -68,6 +70,8 @@ public class View extends JFrame implements ActionListener
 		guiWidth = 1280; //old val: 1300
 		guiHeight = 720; //old val: 1000
 		//1280×720
+		
+		addKeyListener(this);
 
 		//make visible
 		setSize(guiWidth,guiHeight);
@@ -107,13 +111,9 @@ public class View extends JFrame implements ActionListener
 		g.drawImage(tree, 950, 700, 150, 250, null);
 		
 		if(state >= 50)
-		{
 			g.drawImage(gemState1, 325, 250, 50, 50, null);
-		}
 		else
-		{
 			g.drawImage(gemState2, 325, 250, 50, 50, null);
-		}
 		
 		if(state <= 25)
 			g.drawImage(char1, 1100, 100, 50, 100, null);
@@ -154,6 +154,45 @@ public class View extends JFrame implements ActionListener
 			}
 		}
 		repaint();
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		switch(e.getKeyCode())
+		{
+		case KeyEvent.VK_LEFT:
+			level.getPlayer().setTrue(Moveable.L);
+			break;
+		case KeyEvent.VK_RIGHT:
+			level.getPlayer().setTrue(Moveable.R);
+			break;
+		case KeyEvent.VK_UP:
+			level.getPlayer().setTrue(Moveable.U);
+			break;
+		}
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		switch(e.getKeyCode())
+		{
+			case KeyEvent.VK_LEFT:
+				level.getPlayer().setFalse(Moveable.L);
+				break;
+			case KeyEvent.VK_RIGHT:
+				level.getPlayer().setFalse(Moveable.R);
+				break;
+			case KeyEvent.VK_UP:
+				level.getPlayer().setFalse(Moveable.U);
+				break;
+		}
+		
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

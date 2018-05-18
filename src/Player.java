@@ -9,7 +9,7 @@ public class Player extends Model implements KeyListener {
 	private boolean rightPressed;
 	private boolean upPressed;
 	private boolean isOnGround;
-	
+
 	public Player(int x, int y, int w, int h, String image)
 	{
 		super(x,y,w,h,image);
@@ -20,17 +20,17 @@ public class Player extends Model implements KeyListener {
 		isOnGround = false;
 		System.out.println("is on ground?" + isOnGround);
 	}
-	
+
 	public int getGemCount()
 	{
 		return gemCount;
 	}
-	
+
 	public void incrementGemCount()
 	{
 		gemCount++;
 	}
-	
+
 	public void run()
 	{
 		System.out.println("run here");
@@ -42,7 +42,6 @@ public class Player extends Model implements KeyListener {
 				if(this.intersects(m) && (m.getY() - this.getMaxY() <= 1))
 				{
 					isOnGround = true;
-					System.out.println(m);
 				}
 				else if(this.intersects(m))
 				{
@@ -65,7 +64,7 @@ public class Player extends Model implements KeyListener {
 		}
 		else if(!isOnGround)
 		{
-			this.setLocation((int)(this.getX()), (int)(this.getY()));
+			this.setLocation((int)(this.getX()), (int)(this.getY() + 3));
 			if(leftPressed)
 			{
 				this.setLocation((int)(this.getX()-2), (int)(this.getY()));
@@ -81,39 +80,73 @@ public class Player extends Model implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode())
 		{
-			case KeyEvent.VK_LEFT:
-				leftPressed = true;
-				break;
-			case KeyEvent.VK_RIGHT:
-				rightPressed = true;
-				break;
-			case KeyEvent.VK_UP:
-				upPressed = true;
-				break;
+		case KeyEvent.VK_LEFT:
+			leftPressed = true;
+			break;
+		case KeyEvent.VK_RIGHT:
+			rightPressed = true;
+			System.out.println("right");
+			break;
+		case KeyEvent.VK_UP:
+			upPressed = true;
+			break;
 		}
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode())
 		{
-			case KeyEvent.VK_LEFT:
-				leftPressed = false;
-				break;
-			case KeyEvent.VK_RIGHT:
-				rightPressed = false;
-				break;
-			case KeyEvent.VK_UP:
-				upPressed = false;
-				break;
+		case KeyEvent.VK_LEFT:
+			leftPressed = false;
+			break;
+		case KeyEvent.VK_RIGHT:
+			rightPressed = false;
+			break;
+		case KeyEvent.VK_UP:
+			upPressed = false;
+			break;
 		}
-		
+
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent e) 
+	{
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	public void setTrue(int dir)
+	{
+		switch(dir)
+		{
+		case Moveable.R:
+			rightPressed = true;
+			break;
+		case Moveable.L:
+			leftPressed = true;
+			break;
+		case Moveable.U:
+			upPressed = true;
+			break;
+		}
+	}
+	
+	public void setFalse(int dir)
+	{
+		switch(dir)
+		{
+		case Moveable.R:
+			rightPressed = false;
+			break;
+		case Moveable.L:
+			leftPressed = false;
+			break;
+		case Moveable.U:
+			upPressed = false;
+			break;
+		}
 	}
 }
