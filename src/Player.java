@@ -17,7 +17,8 @@ public class Player extends Model implements KeyListener {
 		leftPressed = false;
 		rightPressed = false;
 		upPressed = false;
-		isOnGround = true;
+		isOnGround = false;
+		System.out.println("is on ground?" + isOnGround);
 	}
 	
 	public int getGemCount()
@@ -32,32 +33,39 @@ public class Player extends Model implements KeyListener {
 	
 	public void run()
 	{
+		System.out.println("run here");
 		ArrayList<Model> collisions = checkCollisions(Level.getGameObjects());
 		for(Model m : collisions)
 		{
-			if(this.intersects(m) && (m.getY() - this.getMaxY() <= 1))
+			if(!(m instanceof Player))
 			{
-				isOnGround = true;
-			}
-			else if(this.intersects(m))
-			{
-				m.collidedAction();
+				if(this.intersects(m) && (m.getY() - this.getMaxY() <= 1))
+				{
+					isOnGround = true;
+					System.out.println(m);
+				}
+				else if(this.intersects(m))
+				{
+					m.collidedAction();
+				}
 			}
 		}
-		if(leftPressed)
+		if(isOnGround && leftPressed)
 		{
+			System.out.println("left is pressed");
 			this.setLocation((int)(this.getX()-4), (int)(this.getY()));
 		}
-		else if(rightPressed)
+		else if(isOnGround && rightPressed)
 		{
 			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
 		}
-		else if(upPressed)
+		else if(isOnGround && upPressed)
 		{
 			this.setLocation((int)(this.getX()), (int)(this.getY()+6));
 		}
 		else if(!isOnGround)
 		{
+			this.setLocation((int)(this.getX()), (int)(this.getY()));
 			if(leftPressed)
 			{
 				this.setLocation((int)(this.getX()-2), (int)(this.getY()));

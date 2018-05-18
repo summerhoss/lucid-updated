@@ -143,6 +143,10 @@ public class View extends JFrame implements ActionListener
 		
 		for(Model m: Level.getGameObjects())
 		{
+			if(m instanceof Player)
+			{
+				m.run();
+			}
 			if(m instanceof Platform)
 			{
 				if(m instanceof Cloud)
