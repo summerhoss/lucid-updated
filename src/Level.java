@@ -46,9 +46,6 @@ public class Level
 		//ground
 		for(int x = 0; x < 1300; x += 100)
 			gameObjects.add(new Platform(x, 950, 100, 50, "platform"));
-		
-		//instantiate level 1
-		//level1 = new Level(plats);
 	}
 	
 	public void createLevel2()

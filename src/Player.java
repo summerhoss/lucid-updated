@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player extends Model implements KeyListener {
 
-	private int gemCount;
+	private int count;
 	private boolean leftPressed;
 	private boolean rightPressed;
 	private boolean upPressed;
@@ -13,7 +13,7 @@ public class Player extends Model implements KeyListener {
 	public Player(int x, int y, int w, int h, String image)
 	{
 		super(x,y,w,h,image);
-		gemCount = 0;
+		count = 0;
 		leftPressed = false;
 		rightPressed = false;
 		upPressed = false;
@@ -21,19 +21,18 @@ public class Player extends Model implements KeyListener {
 		System.out.println("is on ground?" + isOnGround);
 	}
 
-	public int getGemCount()
+	public int getCount()
 	{
-		return gemCount;
+		return count;
 	}
 
-	public void incrementGemCount()
+	public void incrementCount()
 	{
-		gemCount++;
+		count++;
 	}
 
 	public void run()
 	{
-		System.out.println("run here");
 		ArrayList<Model> collisions = checkCollisions(Level.getGameObjects());
 		for(Model m : collisions)
 		{
@@ -43,12 +42,25 @@ public class Player extends Model implements KeyListener {
 				{
 					isOnGround = true;
 				}
+				else if(this.intersects(m) && m instanceof Gem)
+				{
+					m.collidedAction();
+					incrementCount();
+					incrementCount();
+					incrementCount();
+				}
+				else if(this.intersects(m) && m instanceof Seed)
+				{
+					m.collidedAction();
+					incrementCount();
+				}
 				else if(this.intersects(m))
 				{
 					m.collidedAction();
 				}
 			}
 		}
+		
 		if(isOnGround && leftPressed)
 		{
 			System.out.println("left is pressed");
@@ -60,11 +72,17 @@ public class Player extends Model implements KeyListener {
 		}
 		else if(isOnGround && upPressed)
 		{
-			this.setLocation((int)(this.getX()), (int)(this.getY()+6));
+			this.setLocation((int)(this.getX()), (int)(this.getY()-6));
 		}
-		else if(!isOnGround)
+		
+		if(!isOnGround)
 		{
-			this.setLocation((int)(this.getX()), (int)(this.getY() + 3));
+			System.out.println("falling");
+			int targetY = (int)(this.getY()-6);
+			if(Math.abs(targetY - this.getY()) < 1)
+			{
+				this.setLocation((int)(this.getX()), (int)(this.getY() + 3));
+			}
 			if(leftPressed)
 			{
 				this.setLocation((int)(this.getX()-2), (int)(this.getY()));
