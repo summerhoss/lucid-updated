@@ -22,7 +22,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image tree;
 	private Timer timer;
 	private int state;
-	
+	private boolean gemState;
 	private Image platform;
 
 	public View(Level lv)
@@ -64,12 +64,13 @@ public class View extends JFrame implements ActionListener, KeyListener
 		
 		//initialize boolean
 		state = 0;
+		gemState = true;
 		
 
 		//set size
 		guiWidth = 1300; //old val: 1300
 		guiHeight = 800; //old val: 1000
-		//1280×720
+		//1280ï¿½720
 		
 		addKeyListener(this);
 
@@ -83,7 +84,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	{
 		Image offImage = createImage(1300, 800);
 	// Creates an off-screen drawable image to be used for
-	// double buffering; XSIZE, YSIZE are each of type ‘int’;
+	// double buffering; XSIZE, YSIZE are each of type ï¿½intï¿½;
 	// represents size of JFrame or JPanel, etc
 		Graphics buffer = offImage.getGraphics();
 	// Creates a graphics context for drawing to an 
@@ -114,6 +115,9 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(gemState1, 325, 250, 50, 50, null);
 		else
 			g.drawImage(gemState2, 325, 250, 50, 50, null);
+		
+		if(!gemState)
+			g.fillRect(325, 250, 50, 50);
 		
 		if(state <= 25)
 			g.drawImage(char1, 1100, 100, 50, 100, null);
@@ -150,6 +154,17 @@ public class View extends JFrame implements ActionListener, KeyListener
 			{
 				if(m instanceof Cloud)
 					((Cloud) m).shift();
+			}
+			if(m instanceof Gem)
+			{		
+				if(((Gem) m).getVisible() == false)
+				{
+					gemState = false;
+				}
+			}
+			if(m instanceof Seed)
+			{
+				
 			}
 		}
 		repaint();
