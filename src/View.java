@@ -67,8 +67,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 		
 
 		//set size
-		guiWidth = 1280; //old val: 1300
-		guiHeight = 720; //old val: 1000
+		guiWidth = 1300; //old val: 1300
+		guiHeight = 800; //old val: 1000
 		//1280×720
 		
 		addKeyListener(this);
@@ -81,7 +81,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	
 	public void paint(Graphics g)
 	{
-		Image offImage = createImage(1280, 720);
+		Image offImage = createImage(1300, 800);
 	// Creates an off-screen drawable image to be used for
 	// double buffering; XSIZE, YSIZE are each of type ‘int’;
 	// represents size of JFrame or JPanel, etc
@@ -140,7 +140,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 			state++;
 		else
 			state = 0;
-		
 		for(Model m: Level.getGameObjects())
 		{
 			if(m instanceof Player)
