@@ -60,7 +60,6 @@ public class Level
 		gameObjects.add(new Gem(400, 100, 25, 25, "gemState1"));
 		
 		levelNum = 1;
-
 	}
 
 	public void createLevel2()

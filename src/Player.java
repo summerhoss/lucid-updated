@@ -9,6 +9,8 @@ public class Player extends Model implements KeyListener {
 	private boolean rightPressed;
 	private boolean upPressed;
 	private boolean isOnGround;
+	private boolean jumping;
+	private boolean falling;
 
 	public Player(int x, int y, int w, int h, String image)
 	{
@@ -18,6 +20,9 @@ public class Player extends Model implements KeyListener {
 		rightPressed = false;
 		upPressed = false;
 		isOnGround = false;
+		jumping = false;
+		//change value of falling here?
+		falling = true;
 	}
 
 	public int getCount()
@@ -33,31 +38,43 @@ public class Player extends Model implements KeyListener {
 	public void run()
 	{
 		ArrayList<Model> collisions = checkCollisions(Level.getGameObjects());
+		isOnGround = false;
+		falling = true;
+		jumping = false;
 		for(Model m : collisions)
 		{
 			if(!(m instanceof Player))
 			{
-				if(this.intersects(m) && (m.getY() - this.getMaxY() <= 1))
+				if(this.intersects(m) && (m.getY() - this.getMaxY() <= 1) && m instanceof Platform)
 				{
 					isOnGround = true;
+					falling = false;
+					jumping = false;
 				}
-				else if(this.intersects(m) && m instanceof Gem)
+				else if(m instanceof Gem)
 				{
 					m.collidedAction();
 					incrementCount();
 					incrementCount();
 					incrementCount();
 				}
-				else if(this.intersects(m) && m instanceof Seed)
+				else if(m instanceof Seed)
 				{
 					m.collidedAction();
 					incrementCount();
 				}
-				else if(this.intersects(m))
+				else
 				{
 					m.collidedAction();
 				}
 			}
+		}
+		
+		System.out.println(isOnGround + " " + falling + " " + jumping);
+		if(!isOnGround && !jumping)
+		{
+			falling = true;
+			this.setLocation((int)(this.getX()), (int)(this.getY()+6));
 		}
 		
 		if(isOnGround && leftPressed)
@@ -68,18 +85,16 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
 		}
-		else if(isOnGround && upPressed)
+		else if(isOnGround && upPressed && !falling)
 		{
-			this.setLocation((int)(this.getX()), (int)(this.getY()-6));
-		}
-		
-		if(!isOnGround)
-		{
-			
-			int targetY = (int)(this.getY()-6);
+			jumping = true;
+			int targetY = (int)(this.getY()-200);
+			this.setLocation((int)(this.getX()), (int)(this.getY()-200));
+
 			if(Math.abs(targetY - this.getY()) < 1)
 			{
-				this.setLocation((int)(this.getX()), (int)(this.getY() + 3));
+				//this.setLocation((int)(this.getX()), (int)(this.getY() + 3));
+				falling = true;
 			}
 			if(leftPressed)
 			{
@@ -90,6 +105,52 @@ public class Player extends Model implements KeyListener {
 				this.setLocation((int)(this.getX()+2), (int)(this.getY()));
 			}
 		}
+		
+		/*
+		System.out.println(isOnGround + " " + falling + " " + jumping);
+		if(isOnGround && leftPressed)
+		{
+			this.setLocation((int)(this.getX()-4), (int)(this.getY()));
+		}
+		else if(isOnGround && rightPressed)
+		{
+			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
+		}
+		else if(!isOnGround && !jumping)
+		{
+			falling = true;
+			this.setLocation((int)(this.getX()), (int)(this.getY()+6));
+		}
+		else if(isOnGround && upPressed && !falling)
+		{
+<<<<<<< HEAD
+			
+			int targetY = (int)(this.getY()-6);
+=======
+			jumping = true;
+			int targetY = (int)(this.getY()-27);
+>>>>>>> c152a076a1afe786ce3bdae09a3435bbc3ffc90b
+			if(Math.abs(targetY - this.getY()) < 1)
+			{
+				//this.setLocation((int)(this.getX()), (int)(this.getY() + 3));
+				falling = true;
+			}
+			if(leftPressed)
+			{
+				this.setLocation((int)(this.getX()-2), (int)(this.getY()));
+			}
+			else if(rightPressed)
+			{
+				this.setLocation((int)(this.getX()+2), (int)(this.getY()));
+			}
+			this.setLocation((int)(this.getX()), (int)(this.getY()-3));
+		}
+		
+		else if(isOnGround && upPressed)
+		{
+			this.setLocation((int)(this.getX()), (int)(this.getY()-6));
+		}
+		*/
 	}
 
 	@Override

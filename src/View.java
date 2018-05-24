@@ -23,13 +23,13 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image vine;
 	private Image stick;
 	private Image sign;
-	
+
 	private Timer timer;
 	private int state;
 	private JLabel gemLabel;
 	private Image gem;
 	private JPanel panel;
-
+	private boolean gemState;
 	private Image platform;
 
 	public View(Level lv)
@@ -66,18 +66,17 @@ public class View extends JFrame implements ActionListener, KeyListener
 		stick = stickIcon.getImage();
 		ImageIcon signIcon = new ImageIcon(cldr.getResource("sign.png"));
 		sign = signIcon.getImage();
-		
+
 		//counters
 		gemLabel = new JLabel("hi");
 		panel.add(gemLabel);
-		
+
 		//initialize and start timer
 		timer = new Timer(10, this);
 		timer.start();
 
 		//initialize boolean
 		state = 0;
-
 
 		//set size
 		guiWidth = 900; //old val: 1300
@@ -94,9 +93,9 @@ public class View extends JFrame implements ActionListener, KeyListener
 
 	public void paint(Graphics g)
 	{
-		Image offImage = createImage(1280, 720);
+		Image offImage = createImage(900, 700);
 		// Creates an off-screen drawable image to be used for
-		// double buffering; XSIZE, YSIZE are each of type ‘int’;
+		// double buffering; XSIZE, YSIZE are each of type ï¿½intï¿½;
 		// represents size of JFrame or JPanel, etc
 		Graphics buffer = offImage.getGraphics();
 		// Creates a graphics context for drawing to an 
@@ -122,16 +121,13 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(sign, 800, 100, 50, 50, null);
 			g.drawImage(stick, 312, 550, 25, 125, null);
 		}
-		
+
 		//platforms
 		for(Model m: Level.getGameObjects())
 		{
 			if(m.exists())
-			g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
+				g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
 		}
-
-		
-
 
 		if(state <= 25)
 			g.drawImage(char1, 1100, 100, 50, 100, null);
@@ -141,7 +137,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(char1, 1100, 100, 50, 100, null);
 		else
 			g.drawImage(char3, 1100, 100, 50, 100, null);
-
 	}
 
 	/**
@@ -154,11 +149,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		if(state <= 100)
-			state++;
-		else
-			state = 0;
-
 		for(Model m: Level.getGameObjects())
 		{
 			if(m instanceof Player)
@@ -169,6 +159,17 @@ public class View extends JFrame implements ActionListener, KeyListener
 			{
 				if(m instanceof Cloud)
 					((Cloud) m).shift();
+			}
+			if(m instanceof Gem)
+			{		
+				if(((Gem) m).getVisible() == false)
+				{
+					gemState = false;
+				}
+			}
+			if(m instanceof Seed)
+			{
+
 			}
 		}
 		repaint();

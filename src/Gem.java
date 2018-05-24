@@ -12,9 +12,17 @@ public class Gem extends Model{
 	{
 		super(x,y,w,h,name);
 	}
+	
+	public boolean getVisible()
+	{
+		//returns whether or not the gem is visible
+		return visible;
+	}
 
 	public void collidedAction()
 	{
 		toggleExist();
 	}
+	
 }
+
