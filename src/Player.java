@@ -18,7 +18,6 @@ public class Player extends Model implements KeyListener {
 		rightPressed = false;
 		upPressed = false;
 		isOnGround = false;
-		System.out.println("is on ground?" + isOnGround);
 	}
 
 	public int getCount()
@@ -63,7 +62,6 @@ public class Player extends Model implements KeyListener {
 		
 		if(isOnGround && leftPressed)
 		{
-			System.out.println("left is pressed");
 			this.setLocation((int)(this.getX()-4), (int)(this.getY()));
 		}
 		else if(isOnGround && rightPressed)
@@ -77,7 +75,7 @@ public class Player extends Model implements KeyListener {
 		
 		if(!isOnGround)
 		{
-			System.out.println("falling");
+			
 			int targetY = (int)(this.getY()-6);
 			if(Math.abs(targetY - this.getY()) < 1)
 			{
