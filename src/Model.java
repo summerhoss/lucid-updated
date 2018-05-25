@@ -41,15 +41,7 @@ public abstract class Model extends Rectangle {
 	
 	public void run()
 	{
-		//Possibly remove this code - has been moved to player
-		ArrayList<Model> collisions = checkCollisions(Level.getGameObjects());
-		for(Model m : collisions)
-		{
-			if(this.intersects(m) && (m.getY() - this.getMaxY() <= 1))
-			{
-				
-			}
-		}
+		
 	}
 	
 	public ArrayList<Model> checkCollisions(ArrayList<Model> list)
