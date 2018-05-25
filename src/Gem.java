@@ -1,23 +1,28 @@
 
 public class Gem extends Model{
-	private boolean state1;
-	private boolean state2;
 	private boolean visible;
 	
 	public Gem()
 	{
+		//initialize instance variables
 		visible = true;
-		state1 = true;
-		state2 = false;
 	}
 	
 	public Gem(int x, int y, int w, int h, String name)
 	{
 		super(x,y,w,h,name);
 	}
+	
+	public boolean getVisible()
+	{
+		//returns whether or not the gem is visible
+		return visible;
+	}
 
 	public void collidedAction()
 	{
-		visible = false;
+		toggleExist();
 	}
+	
 }
+

@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 
 public abstract class Model extends Rectangle {
 	Image image;
+	Boolean exists;
 	/*
 	private int myX;
 	private int myY;
@@ -32,6 +33,8 @@ public abstract class Model extends Rectangle {
 		
 		ImageIcon icon = new ImageIcon(cldr.getResource(name + ".png"));
 		image = icon.getImage();
+		
+		exists = true;
 	}
 	
 	public Image getType()
@@ -60,5 +63,15 @@ public abstract class Model extends Rectangle {
 	public void collidedAction()
 	{
 		
+	}
+	
+	public boolean exists()
+	{
+		return exists;
+	}
+	
+	public void toggleExist()
+	{
+		exists = !exists;
 	}
 }

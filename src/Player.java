@@ -8,7 +8,6 @@ public class Player extends Model implements KeyListener {
 	private boolean leftPressed;
 	private boolean rightPressed;
 	private boolean upPressed;
-	private boolean isOnGround;
 	private boolean jumping;
 	private boolean falling;
 	private int fallDist;
@@ -27,7 +26,6 @@ public class Player extends Model implements KeyListener {
 		leftPressed = false;
 		rightPressed = false;
 		upPressed = false;
-		isOnGround = false;
 		jumping = false;
 		falling = true;
 		fallDist = 5;
@@ -87,7 +85,6 @@ public class Player extends Model implements KeyListener {
 					{
 						top = true;
 						falling = false;
-						isOnGround = true;
 						jumping = false;
 						//System.out.println("top");
 					}
@@ -103,32 +100,12 @@ public class Player extends Model implements KeyListener {
 						jumping = false;
 						//System.out.println("right");
 					}
-					else if(diff3<0 && diff3>-10)
+					else if(diff3<0 && diff3>-30)
 					{
 						left = true;
 						jumping = false;
 						//System.out.println("left");
 					}
-					
-						/*
-					if(diff2 > diff1)
-					{
-						if(diff1 > 0)
-							bottom = true;
-						else 
-							top = true;
-						//bottom = true;
-						System.out.println("bottom = " + bottom);
-					}
-					else
-					{
-						if(diff2 > 0)
-							left = true;
-						else
-							right = true;
-						System.out.println("right = " + right);
-					}
-					*/
 				}
 				else if(m instanceof Gem)
 				{
@@ -146,65 +123,6 @@ public class Player extends Model implements KeyListener {
 				{
 					m.collidedAction();
 				}
-				
-				/*
-				System.out.println("Player x = " + this.getX());
-				if(m instanceof Platform)
-					System.out.println("Platform max x = " + m.getMaxX());
-					*/
-				
-				/*
-				if(this.getMaxX() - m.getX() <= 1 && m instanceof Platform)
-				{
-					//(Math.abs(m.getX()-this.getMaxX()) <= 1)
-					System.out.println("intersects on side 1");
-					isOnGround = false;
-					falling = true;
-					jumping = false;
-				}
-				else if(m.getMaxX() - this.getX() <= 1 && m instanceof Platform)
-				{
-					//(Math.abs(m.getX()-this.getMaxX()) <= 1)
-					isOnGround = false;
-					falling = true;
-					jumping = false;
-				}
-				else if(Math.abs(m.getY() - fallDist) <= this.getMaxY() && m instanceof Platform)
-				{
-					System.out.println("hits platform");
-					//m.getY()-fallDist <= this.getMaxY()
-					//m.getY() - this.getMaxY() <= 1
-					remainingDist = (int)(m.getY()-this.getMaxY());
-					//System.out.println(m.getY());
-					//System.out.println(this.getMaxY());
-					isOnGround = true;
-					falling = false;
-					jumping = false;
-				}
-				else if(m.getMaxY() - this.getY() <= 1)
-				{
-					System.out.println("top collision");
-					isOnGround = false;
-					falling = true;
-					jumping = false;
-				}
-				else if(m instanceof Gem)
-				{
-					m.collidedAction();
-					incrementCount();
-					incrementCount();
-					incrementCount();
-				}
-				else if(m instanceof Seed)
-				{
-					m.collidedAction();
-					incrementCount();
-				}
-				else
-				{
-					m.collidedAction();
-				}
-				*/
 			}
 		}
 	}
@@ -213,7 +131,7 @@ public class Player extends Model implements KeyListener {
 	{
 		if(setTarget)
 		{
-			targetY = (int)(this.getY()-200);
+			targetY = (int)(this.getY()-150);
 			System.out.println(targetY);
 		}
 		setTarget = false;
@@ -234,24 +152,13 @@ public class Player extends Model implements KeyListener {
 	public void fall()
 	{
 		this.setLocation((int)(this.getX()), (int)(this.getY()+fallDist));
-		/*
-		if(remainingDist != 0)
-		{
-			this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist));
-			remainingDist = 0;
-		}
-		else
-		{
-			this.setLocation((int)(this.getX()), (int)(this.getY()+fallDist));
-		}
-		*/
 	}
 	
 	public void run()
 	{
 		this.manageCollisions();
 		//System.out.println(isOnGround + " " + falling + " " + jumping);
-		if(top)
+		if(top && !(left || right || bottom))
 			this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist+1));
 		
 		if(!top && !jumping)
@@ -284,138 +191,86 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation((int)(this.getX()+2), (int)(this.getY()));
 		}
-		else if(isOnGround && leftPressed && !right)
+		else if(top && leftPressed && !right)
 		{
 			this.setLocation((int)(this.getX()-4), (int)(this.getY()));
 		}
-		else if(isOnGround && rightPressed && !left)
+		else if(top && rightPressed && !left)
 		{
 			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
 		}
-
-		/*
-			if(leftPressed)
-			{
-				this.setLocation((int)(this.getX()-2), (int)(this.getY()));
-			}
-			else if(rightPressed)
-			{
-				this.setLocation((int)(this.getX()+2), (int)(this.getY()));
-			}
-		 */
-
-	/*
-		System.out.println(isOnGround + " " + falling + " " + jumping);
-		if(isOnGround && leftPressed)
-		{
-			this.setLocation((int)(this.getX()-4), (int)(this.getY()));
-		}
-		else if(isOnGround && rightPressed)
-		{
-			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
-		}
-		else if(!isOnGround && !jumping)
-		{
-			falling = true;
-			this.setLocation((int)(this.getX()), (int)(this.getY()+6));
-		}
-		else if(isOnGround && upPressed && !falling)
-		{
-			jumping = true;
-			int targetY = (int)(this.getY()-27);
-			if(Math.abs(targetY - this.getY()) < 1)
-			{
-				//this.setLocation((int)(this.getX()), (int)(this.getY() + 3));
-				falling = true;
-			}
-			if(leftPressed)
-			{
-				this.setLocation((int)(this.getX()-2), (int)(this.getY()));
-			}
-			else if(rightPressed)
-			{
-				this.setLocation((int)(this.getX()+2), (int)(this.getY()));
-			}
-			this.setLocation((int)(this.getX()), (int)(this.getY()-3));
-		}
-
-		else if(isOnGround && upPressed)
-		{
-			this.setLocation((int)(this.getX()), (int)(this.getY()-6));
-		}
-	 */
-}
-
-@Override
-public void keyPressed(KeyEvent e) {
-	switch(e.getKeyCode())
-	{
-	case KeyEvent.VK_LEFT:
-		leftPressed = true;
-		break;
-	case KeyEvent.VK_RIGHT:
-		rightPressed = true;
-		break;
-	case KeyEvent.VK_UP:
-		upPressed = true;
-		break;
 	}
-
-}
-
-@Override
-public void keyReleased(KeyEvent e) {
-	switch(e.getKeyCode())
-	{
-	case KeyEvent.VK_LEFT:
-		leftPressed = false;
-		break;
-	case KeyEvent.VK_RIGHT:
-		rightPressed = false;
-		break;
-	case KeyEvent.VK_UP:
-		upPressed = false;
-		break;
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		switch(e.getKeyCode())
+		{
+		case KeyEvent.VK_LEFT:
+			leftPressed = true;
+			break;
+		case KeyEvent.VK_RIGHT:
+			rightPressed = true;
+			break;
+		case KeyEvent.VK_UP:
+			upPressed = true;
+			break;
+		}
+	
 	}
-
-}
-
-@Override
-public void keyTyped(KeyEvent e) 
-{
-	// TODO Auto-generated method stub
-
-}
-
-public void setTrue(int dir)
-{
-	switch(dir)
-	{
-	case Moveable.R:
-		rightPressed = true;
-		break;
-	case Moveable.L:
-		leftPressed = true;
-		break;
-	case Moveable.U:
-		upPressed = true;
-		break;
+	
+	@Override
+	public void keyReleased(KeyEvent e) {
+		switch(e.getKeyCode())
+		{
+		case KeyEvent.VK_LEFT:
+			leftPressed = false;
+			break;
+		case KeyEvent.VK_RIGHT:
+			rightPressed = false;
+			break;
+		case KeyEvent.VK_UP:
+			upPressed = false;
+			break;
+		}
+	
 	}
-}
-
-public void setFalse(int dir)
-{
-	switch(dir)
+	
+	@Override
+	public void keyTyped(KeyEvent e) 
 	{
-	case Moveable.R:
-		rightPressed = false;
-		break;
-	case Moveable.L:
-		leftPressed = false;
-		break;
-	case Moveable.U:
-		upPressed = false;
-		break;
+		// TODO Auto-generated method stub
+	
 	}
-}
+	
+	public void setTrue(int dir)
+	{
+		switch(dir)
+		{
+		case Moveable.R:
+			rightPressed = true;
+			break;
+		case Moveable.L:
+			leftPressed = true;
+			break;
+		case Moveable.U:
+			upPressed = true;
+			break;
+		}
+	}
+	
+	public void setFalse(int dir)
+	{
+		switch(dir)
+		{
+		case Moveable.R:
+			rightPressed = false;
+			break;
+		case Moveable.L:
+			leftPressed = false;
+			break;
+		case Moveable.U:
+			upPressed = false;
+			break;
+		}
+	}
 }

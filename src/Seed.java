@@ -11,4 +11,9 @@ public class Seed extends Model
 	{
 		visible = false;
 	}
+	
+		public void setVisible(Boolean b)
+	{
+		visible = b;
+	}
 }
