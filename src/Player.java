@@ -69,7 +69,6 @@ public class Player extends Model implements KeyListener {
 			{
 				if(m instanceof Platform)
 				{
-					remainingDist = (int)(m.getY()-this.getMaxY());
 					diff1 = (int)this.getY() - (int)m.getMaxY();
 					diff2 = (int)this.getX() - (int)m.getMaxX();
 					diff3 = (int)m.getX() - (int)this.getMaxX();
@@ -84,26 +83,22 @@ public class Player extends Model implements KeyListener {
 					if(diff4<0 && diff4>-10)
 					{
 						top = true;
-						falling = false;
-						jumping = false;
+						remainingDist = (int)(m.getY()-this.getMaxY());
 						//System.out.println("top");
 					}
 					else if(diff1<0 && diff1>-10)
 					{
 						bottom = true;
-						jumping = false;
 						//System.out.println("bottom");
 					}
 					else if(diff2<0 && diff2>-10)
 					{
 						right = true;
-						jumping = false;
 						//System.out.println("right");
 					}
-					else if(diff3<0 && diff3>-30)
+					else if(diff3<0 && diff3>-10)
 					{
 						left = true;
-						jumping = false;
 						//System.out.println("left");
 					}
 				}
@@ -129,17 +124,15 @@ public class Player extends Model implements KeyListener {
 	
 	public void jump()
 	{
+		//Set max jump height
 		if(setTarget)
 		{
 			targetY = (int)(this.getY()-150);
-			System.out.println(targetY);
 		}
 		setTarget = false;
-		//System.out.println(targetY);
-		//System.out.println(this.getY());
+		//Fall once it reaches max height or adjusts position upward
 		if(Math.abs(targetY - this.getY()) <= 1)
 		{
-			System.out.println("target hit");
 			falling = true;
 			jumping = false;
 		}
@@ -151,29 +144,44 @@ public class Player extends Model implements KeyListener {
 	
 	public void fall()
 	{
+		//Continuously  moves player downward
 		this.setLocation((int)(this.getX()), (int)(this.getY()+fallDist));
 	}
 	
 	public void run()
 	{
 		this.manageCollisions();
-		//System.out.println(isOnGround + " " + falling + " " + jumping);
-		if(top && !(left || right || bottom))
-			this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist+1));
+		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		
+		//Set booleans and manage position based on collisions calculated in manageCollisions
+		if(top)
+		{
+			falling = false;
+		}
+		if(top || left || right || bottom)
+		{
+			jumping = false;
+		}
+		if(top && !(left || right || bottom))
+		{
+			this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist+1));
+		}
+		
+		//Determine falling and jumping
 		if(!top && !jumping)
 		{
 			falling = true;
 		}
-		else if(top && upPressed && !falling)
+		else if(top && upPressed && !jumping && !falling)
 		{
 			if(!jumping && !falling)
+			{
 				setTarget = true;
+			}
 			jumping = true;
 		}
-
-		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		
+		//Jumping and falling
 		if(falling)
 		{
 			this.fall();
@@ -183,6 +191,7 @@ public class Player extends Model implements KeyListener {
 			this.jump();
 		}
 
+		//Adjust left and right position in the air and on the ground
 		if(leftPressed && (falling || jumping) && !right)
 		{
 			this.setLocation((int)(this.getX()-2), (int)(this.getY()));
