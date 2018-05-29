@@ -1,6 +1,9 @@
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 
 public class Player extends Model implements KeyListener {
 
@@ -18,10 +21,31 @@ public class Player extends Model implements KeyListener {
 	private boolean bottom;
 	private boolean left;
 	private boolean right;
-
+	private Image lookRight;
+	private Image rStep1;
+	private Image rStep2;
+	private Image lookLeft;
+	private Image lStep1;
+	private Image lStep2;
+	private int stepCounter;
+	
 	public Player(int x, int y, int w, int h, String image)
 	{
 		super(x,y,w,h,image);
+		ClassLoader cldr = getClass().getClassLoader();
+
+		ImageIcon rightIcon = new ImageIcon(cldr.getResource("char.png"));
+		lookRight = rightIcon.getImage();
+		ImageIcon rStep1Icon = new ImageIcon(cldr.getResource("char3.png"));
+		rStep1 = rStep1Icon.getImage();
+		ImageIcon rStep2Icon = new ImageIcon(cldr.getResource("char2.png"));
+		rStep2 = rStep2Icon.getImage();
+		ImageIcon leftIcon = new ImageIcon(cldr.getResource("charl.png"));
+		lookLeft = leftIcon.getImage();
+		ImageIcon lStep1Icon = new ImageIcon(cldr.getResource("charl3.png"));
+		lStep1 = lStep1Icon.getImage();
+		ImageIcon lStep2Icon = new ImageIcon(cldr.getResource("charl2.png"));
+		lStep2 = lStep2Icon.getImage();
 		count = 0;
 		leftPressed = false;
 		rightPressed = false;
@@ -36,6 +60,7 @@ public class Player extends Model implements KeyListener {
 		bottom = false;
 		left = false;
 		right = false;
+		stepCounter = 0;
 	}
 
 	public int getCount()
@@ -46,6 +71,37 @@ public class Player extends Model implements KeyListener {
 	public void incrementCount()
 	{
 		count++;
+	}
+	
+	public void changeImage()
+	{
+		if(rightPressed)
+		{
+			if(stepCounter == 20)
+				image = rStep2;
+			
+			else if(stepCounter == 60)	
+				image = rStep1;
+			
+			else if(stepCounter == 80 || stepCounter == 40)
+				image = lookRight;		
+		}
+		
+		else if(leftPressed)
+		{
+			if(stepCounter == 20)
+				image = lStep2;
+			
+			else if(stepCounter == 60)	
+				image = lStep1;
+			
+			else if(stepCounter == 80 || stepCounter == 40)
+				image = lookLeft;		
+		}
+		
+		if(stepCounter >= 80)
+			stepCounter = 0;
+		
 	}
 
 	public void manageCollisions()
@@ -152,7 +208,7 @@ public class Player extends Model implements KeyListener {
 	{
 		this.manageCollisions();
 		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
-		
+		changeImage();
 		//Set booleans and manage position based on collisions calculated in manageCollisions
 		if(top)
 		{
@@ -208,6 +264,9 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
 		}
+		
+		if(leftPressed || rightPressed)
+			stepCounter++;
 	}
 	
 	@Override

@@ -12,16 +12,14 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private int guiWidth;
 	private int guiHeight;
 	private Image bg;
-	private Image gemState1;
-	private Image gemState2;
 	private Image char1;
 	private Image char2;
 	private Image char3;
 	private Image uni;
-	private Image wings;
 	private Image tree;
 	private Image vine;
 	private Image stick;
+	private Image stick2;
 	private Image sign;
 
 	private Timer timer;
@@ -30,7 +28,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image gem;
 	private JPanel panel;
 	private boolean gemState;
-	private Image platform;
 
 	public View(Level lv)
 	{
@@ -54,8 +51,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 		char1 = char1Icon.getImage();
 		ImageIcon uniIcon = new ImageIcon(cldr.getResource("unicorn.png"));
 		uni = uniIcon.getImage();
-		ImageIcon wingsIcon = new ImageIcon(cldr.getResource("wings.png"));
-		wings = wingsIcon.getImage();
 		ImageIcon treeIcon = new ImageIcon(cldr.getResource("tree.png"));
 		tree = treeIcon.getImage();
 		ImageIcon gemIcon = new ImageIcon(cldr.getResource("gemState1.png"));
@@ -64,6 +59,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 		vine = vineIcon.getImage();
 		ImageIcon stickIcon = new ImageIcon(cldr.getResource("stick.png"));
 		stick = stickIcon.getImage();
+		ImageIcon stick2Icon = new ImageIcon(cldr.getResource("stick2.png"));
+		stick2 = stick2Icon.getImage();
 		ImageIcon signIcon = new ImageIcon(cldr.getResource("sign.png"));
 		sign = signIcon.getImage();
 
@@ -119,7 +116,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(vine, 395, 150, 30, 75, null);
 			g.drawImage(sign, 550, 612, 50, 50, null);
 			g.drawImage(sign, 800, 100, 50, 50, null);
-			g.drawImage(stick, 312, 550, 25, 125, null);
+			g.drawImage(stick, 312, 550, 30, 125, null);
+			g.drawImage(stick2, 190, 475, 40, 200, null);
 		}
 
 		//platforms
@@ -137,6 +135,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(char1, 1100, 100, 50, 100, null);
 		else
 			g.drawImage(char3, 1100, 100, 50, 100, null);
+		
+		g.drawString("hi", 100, 100);
 	}
 
 	/**
