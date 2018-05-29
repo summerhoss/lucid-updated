@@ -13,7 +13,7 @@ public class Cloud extends Platform
 		direction = Moveable.R;
 	}
 	
-	public void shift()
+	public void run()
 	{
 		if(direction == Moveable.R && x <= maxX)
 			setLocation(x + 1, y);

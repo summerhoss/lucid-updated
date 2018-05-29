@@ -78,7 +78,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 		//set size
 		guiWidth = 900; //old val: 1300
 		guiHeight = 700; //old val: 1000
-		//1280×720
+		//1280ï¿½720
 
 		addKeyListener(this);
 
@@ -104,6 +104,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 
 	public void paintOffScreen(Graphics g)
 	{
+		Model temp = null;
 		// sometimes helpful to do this first to clear things:
 		//g.clearRect(0, 0, 800, 800);
 
@@ -125,7 +126,10 @@ public class View extends JFrame implements ActionListener, KeyListener
 		{
 			if(m.exists())
 				g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
+			if(m.exists() == false)
+				temp = m;
 		}
+		Level.getGameObjects().remove(temp);
 
 		if(state <= 25)
 			g.drawImage(char1, 1100, 100, 50, 100, null);
@@ -151,15 +155,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 	{
 		for(Model m: Level.getGameObjects())
 		{
-			if(m instanceof Player)
-			{
-				m.run();
-			}
-			if(m instanceof Platform)
-			{
-				if(m instanceof Cloud)
-					((Cloud) m).shift();
-			}
 			if(m instanceof Gem)
 			{		
 				if(((Gem) m).getVisible() == false)
@@ -167,9 +162,13 @@ public class View extends JFrame implements ActionListener, KeyListener
 					gemState = false;
 				}
 			}
-			if(m instanceof Seed)
+			else if(m instanceof Seed)
 			{
 
+			}
+			else
+			{
+				m.run();
 			}
 		}
 		repaint();

@@ -214,7 +214,7 @@ public class Player extends Model implements KeyListener {
 		{
 			falling = false;
 		}
-		if(top || left || right || bottom)
+		if(top || bottom)
 		{
 			jumping = false;
 		}
@@ -222,6 +222,13 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist+1));
 		}
+		
+		/*
+		 * if(top || left || right || bottom)
+		{
+			jumping = false;
+		}
+		 */
 		
 		//Determine falling and jumping
 		if(!top && !jumping)
