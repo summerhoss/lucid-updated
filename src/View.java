@@ -151,15 +151,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 	{
 		for(Model m: Level.getGameObjects())
 		{
-			if(m instanceof Player)
-			{
-				m.run();
-			}
-			if(m instanceof Platform)
-			{
-				if(m instanceof Cloud)
-					((Cloud) m).shift();
-			}
 			if(m instanceof Gem)
 			{		
 				if(((Gem) m).getVisible() == false)
@@ -167,9 +158,13 @@ public class View extends JFrame implements ActionListener, KeyListener
 					gemState = false;
 				}
 			}
-			if(m instanceof Seed)
+			else if(m instanceof Seed)
 			{
 
+			}
+			else
+			{
+				m.run();
 			}
 		}
 		repaint();
