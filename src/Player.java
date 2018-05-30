@@ -63,9 +63,9 @@ public class Player extends Model implements KeyListener {
 		stepCounter = 0;
 	}
 
-	public int getCount()
+	public String getCount()
 	{
-		return count;
+		return "Count: " + Integer.toString(count);
 	}
 
 	public void incrementCount()
@@ -104,9 +104,9 @@ public class Player extends Model implements KeyListener {
 		
 	}
 
-	public void manageCollisions()
+	public void manageCollisions(Level l)
 	{
-		ArrayList<Model> collisions = checkCollisions(Level.getGameObjects());
+		ArrayList<Model> collisions = checkCollisions(l.getGameObjects());
 		//isOnGround = false;
 		top = false;
 		bottom = false;
@@ -204,9 +204,9 @@ public class Player extends Model implements KeyListener {
 		this.setLocation((int)(this.getX()), (int)(this.getY()+fallDist));
 	}
 	
-	public void run()
+	public void run(Level l)
 	{
-		this.manageCollisions();
+		this.manageCollisions(l);
 		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		changeImage();
 		//Set booleans and manage position based on collisions calculated in manageCollisions

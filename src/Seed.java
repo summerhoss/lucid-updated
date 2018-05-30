@@ -7,13 +7,19 @@ public class Seed extends Model
 		visible = true;	
 	}
 	
-	public void collidedAction()
+	public Seed(int x, int y, int w, int h, String name)
 	{
-		visible = false;
+		super(x,y,w,h,name);
 	}
 	
-		public void setVisible(Boolean b)
+	public boolean getVisible()
 	{
-		visible = b;
+		//returns whether or not the gem is visible
+		return visible;
+	}
+
+	public void collidedAction()
+	{
+		toggleExist();
 	}
 }
