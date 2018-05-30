@@ -25,10 +25,9 @@ public class View extends JFrame implements ActionListener, KeyListener
 
 	private Timer timer;
 	private int state;
-	private JLabel gemLabel;
+	private JLabel countLabel;
 	private Image gem;
 	private JPanel panel;
-	private boolean gemState;
 
 	public View(Level lv)
 	{
@@ -68,8 +67,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 		seed = seedIcon.getImage();
 
 		//counters
-		gemLabel = new JLabel("");
-		panel.add(gemLabel);
+		countLabel = new JLabel("Count: 0");
+		panel.add(countLabel);
 
 		//initialize and start timer
 		timer = new Timer(10, this);
@@ -112,7 +111,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 		//g.clearRect(0, 0, 800, 800);
 
 		g.drawImage(bg, 0, 0, guiWidth, guiHeight, null);
-
 		
 		if(level.getLevelNum() == 1)
 		{
@@ -132,8 +130,11 @@ public class View extends JFrame implements ActionListener, KeyListener
 				g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
 			if(m.exists() == false)
 				temp = m;
+			if(m instanceof Player)
+				countLabel = new JLabel(((Player) m).getCount());
 		}
 		Level.getGameObjects().remove(temp);
+		g.drawString(countLabel.getText(), 25, 75);
 
 		if(state <= 25)
 			g.drawImage(char1, 1100, 100, 50, 100, null);
@@ -143,6 +144,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(char1, 1100, 100, 50, 100, null);
 		else
 			g.drawImage(char3, 1100, 100, 50, 100, null);
+		
+		
 		
 		
 	}

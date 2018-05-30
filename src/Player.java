@@ -63,9 +63,9 @@ public class Player extends Model implements KeyListener {
 		stepCounter = 0;
 	}
 
-	public int getCount()
+	public String getCount()
 	{
-		return count;
+		return "Count: " + Integer.toString(count);
 	}
 
 	public void incrementCount()
