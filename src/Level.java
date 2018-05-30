@@ -45,11 +45,8 @@ public class Level
 		gameObjects.add(new Platform(375, 225, 75, 37, "platform"));
 		gameObjects.add(new Platform(410, 185, 45, 20, "leaf"));
 		gameObjects.add(new Platform(375, 125, 75, 50, "flower"));
-		gameObjects.add(new Platform(710, 610, 40, 25, "branch"));
-		gameObjects.add(new Platform(663, 540, 75, 37, "treeplat"));
-		gameObjects.add(new Cloud(650, 425, 75, 50, "cloud", 550, 675));
-		gameObjects.add(new Cloud(750, 350, 75, 50, "cloud", 675, 825));
-		gameObjects.add(new Platform(625, 300, 75, 37, "platform"));
+		gameObjects.add(new Platform(663, 525, 75, 37, "treeplat"));
+		gameObjects.add(new Cloud(650, 375, 75, 50, "cloud", 550, 675));
 		gameObjects.add(new Platform(700, 225, 37, 37, "platform"));
 		gameObjects.add(new Platform(750, 150, 75, 37, "platform"));
 		gameObjects.add(new Platform(825, 150, 75, 37, "platform"));
