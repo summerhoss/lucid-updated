@@ -41,6 +41,7 @@ public class Level
 		gameObjects.add(new Platform(37, 250, 37, 37, "platform"));
 		gameObjects.add(new Platform(175, 200, 37, 37, "platform"));
 		gameObjects.add(new Platform(0, 150, 75, 37, "platform"));
+		gameObjects.add(new Seed(50, 135, 15, 15, "seed"));
 		gameObjects.add(new Cloud(212, 200, 75, 50, "cloud", 212, 300));
 		gameObjects.add(new Platform(375, 225, 75, 37, "platform"));
 		gameObjects.add(new Platform(410, 185, 45, 20, "leaf"));

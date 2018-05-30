@@ -21,6 +21,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image stick;
 	private Image stick2;
 	private Image sign;
+	private Image seed;
 
 	private Timer timer;
 	private int state;
@@ -63,9 +64,11 @@ public class View extends JFrame implements ActionListener, KeyListener
 		stick2 = stick2Icon.getImage();
 		ImageIcon signIcon = new ImageIcon(cldr.getResource("sign.png"));
 		sign = signIcon.getImage();
+		ImageIcon seedIcon = new ImageIcon(cldr.getResource("seed.png"));
+		seed = seedIcon.getImage();
 
 		//counters
-		gemLabel = new JLabel("hi");
+		gemLabel = new JLabel("");
 		panel.add(gemLabel);
 
 		//initialize and start timer
@@ -110,6 +113,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 
 		g.drawImage(bg, 0, 0, guiWidth, guiHeight, null);
 
+		
 		if(level.getLevelNum() == 1)
 		{
 			g.drawImage(uni, 800, 588, 75, 75, null);
@@ -140,7 +144,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 		else
 			g.drawImage(char3, 1100, 100, 50, 100, null);
 		
-		g.drawString("hi", 100, 100);
+		
 	}
 
 	/**
@@ -155,23 +159,18 @@ public class View extends JFrame implements ActionListener, KeyListener
 	{
 		for(Model m: Level.getGameObjects())
 		{
-			if(m instanceof Gem)
-			{		
-				if(((Gem) m).getVisible() == false)
-				{
-					gemState = false;
-				}
-			}
-			else if(m instanceof Seed)
-			{
-
-			}
-			else
+			if(m instanceof Player)
 			{
 				m.run();
 			}
+			if(m instanceof Platform)
+			{
+				if(m instanceof Cloud)
+					((Cloud) m).run();
+			}
 		}
 		repaint();
+		
 	}
 
 	@Override
