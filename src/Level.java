@@ -56,9 +56,12 @@ public class Level
 		gameObjects.add(new Platform(825, 150, 75, 37, "platform"));
 
 		//create characters and objects
-		lucy = new Player(100, 100, 37, 75, "char");
+		lucy = new Player(100, 575, 37, 75, "char");
 		gameObjects.add(lucy);
 		gameObjects.add(new Gem(400, 100, 25, 25, "gemState1"));
+		
+		//create portal to next level
+		gameObjects.add(new Portal(870,115,25,25,"none"));
 		
 		levelNum = 1;
 	}
