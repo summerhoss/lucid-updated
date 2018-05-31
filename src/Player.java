@@ -79,25 +79,25 @@ public class Player extends Model implements KeyListener {
 	{
 		if(rightPressed)
 		{
-			if(stepCounter == 20)
-				image = rStep2;
-			
-			else if(stepCounter == 60)	
+			if(stepCounter >= 60)	
 				image = rStep1;
-			
-			else if(stepCounter == 80 || stepCounter == 40)
+			else if(stepCounter >= 40)
+				image = lookRight;
+			else if(stepCounter >= 20)
+				image = rStep2;
+			else
 				image = lookRight;		
 		}
 		
 		else if(leftPressed)
 		{
-			if(stepCounter == 20)
-				image = lStep2;
-			
-			else if(stepCounter == 60)	
+			if(stepCounter >= 60)	
 				image = lStep1;
-			
-			else if(stepCounter == 80 || stepCounter == 40)
+			else if(stepCounter >= 40)
+				image = lookLeft;
+			else if(stepCounter >= 20)
+				image = lStep2;
+			else
 				image = lookLeft;		
 		}
 		
@@ -106,9 +106,9 @@ public class Player extends Model implements KeyListener {
 		
 	}
 
-	public void manageCollisions()
+	public void manageCollisions(Level l)
 	{
-		ArrayList<Model> collisions = checkCollisions(Level.getGameObjects());
+		ArrayList<Model> collisions = checkCollisions(l.getGameObjects());
 		//isOnGround = false;
 		top = false;
 		bottom = false;
@@ -215,9 +215,9 @@ public class Player extends Model implements KeyListener {
 		this.setLocation((int)(this.getX()), (int)(this.getY()+fallDist));
 	}
 	
-	public void run()
+	public void run(Level l)
 	{
-		this.manageCollisions();
+		this.manageCollisions(l);
 		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		changeImage();
 		//Set booleans and manage position based on collisions calculated in manageCollisions

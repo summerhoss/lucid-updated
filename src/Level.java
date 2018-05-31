@@ -5,15 +5,29 @@ public class Level
 	private static ArrayList<Model> gameObjects;
 	private Player lucy;
 	private int levelNum;
+	private boolean complete;
 
 	public Level()
 	{
 		gameObjects = new ArrayList<Model>();
 		lucy = null;
 		levelNum = 0;
+		complete = false;
+	}
+	
+	public boolean isComplete()
+	{
+		return complete;
+	}
+	
+	public void complete()
+	{
+		if(levelNum == 1)
+			if(lucy.getX() >= 900 && lucy.getY() <= 100)
+				complete = true;
 	}
 
-	public static ArrayList<Model> getGameObjects()
+	public ArrayList<Model> getGameObjects()
 	{
 		return gameObjects;
 	}
@@ -44,13 +58,9 @@ public class Level
 		gameObjects.add(new Seed(50, 135, 15, 15, "seed"));
 		gameObjects.add(new Cloud(212, 200, 75, 50, "cloud", 212, 300));
 		gameObjects.add(new Platform(375, 225, 75, 37, "platform"));
-		gameObjects.add(new Platform(410, 185, 45, 20, "leaf"));
 		gameObjects.add(new Platform(375, 125, 75, 50, "flower"));
-		gameObjects.add(new Platform(710, 610, 40, 25, "branch"));
-		gameObjects.add(new Platform(663, 540, 75, 37, "treeplat"));
-		gameObjects.add(new Cloud(650, 425, 75, 50, "cloud", 550, 675));
-		gameObjects.add(new Cloud(750, 350, 75, 50, "cloud", 675, 825));
-		gameObjects.add(new Platform(625, 300, 75, 37, "platform"));
+		gameObjects.add(new Platform(663, 525, 75, 37, "treeplat"));
+		gameObjects.add(new Cloud(650, 375, 75, 50, "cloud", 550, 675));
 		gameObjects.add(new Platform(700, 225, 37, 37, "platform"));
 		gameObjects.add(new Platform(750, 150, 75, 37, "platform"));
 		gameObjects.add(new Platform(825, 150, 75, 37, "platform"));
@@ -61,14 +71,17 @@ public class Level
 		gameObjects.add(new Gem(400, 100, 25, 25, "gemState1"));
 		
 		//create portal to next level
-		gameObjects.add(new Portal(870,115,25,25,"none"));
+		//gameObjects.add(new Portal(870,115,25,25,"none"));
 		
 		levelNum = 1;
 	}
 
 	public void createLevel2()
 	{
-
+		levelNum = 2;
+		gameObjects = new ArrayList<Model>();
+		lucy = new Player(825, 75, 37, 75, "char");
+		gameObjects.add(lucy);
 	}
 	
 	public int getLevelNum()
