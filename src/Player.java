@@ -28,7 +28,7 @@ public class Player extends Model implements KeyListener {
 	private Image lStep1;
 	private Image lStep2;
 	private int stepCounter;
-	private boolean nextLevel;
+	private int nextLevel;
 	
 	public Player(int x, int y, int w, int h, String image)
 	{
@@ -62,7 +62,7 @@ public class Player extends Model implements KeyListener {
 		left = false;
 		right = false;
 		stepCounter = 0;
-		nextLevel = false;
+		nextLevel = 0;
 	}
 
 	public String getCount()
@@ -179,7 +179,8 @@ public class Player extends Model implements KeyListener {
 				}
 				else if(m instanceof Portal)
 				{
-					nextLevel = true;
+					nextLevel = ((Portal) m).getLevel();
+					System.out.println("collided with portal");
 				}
 				else
 				{
@@ -227,10 +228,10 @@ public class Player extends Model implements KeyListener {
 			this.setLocation(100, 575);
 		}
 		
-		if(nextLevel)
+		if(nextLevel == 2)
 		{
-			nextLevel = false;
-			this.setLocation(100, 575);
+			l.setComplete(true);
+			//this.setLocation(100, 575);
 		}
 		
 		if(top)

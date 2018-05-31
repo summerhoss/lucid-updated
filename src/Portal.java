@@ -9,7 +9,7 @@ public class Portal extends Model {
 	{
 		newX = 0;
 		newY = 0;
-		level = 0;
+		level = 1;
 	}
 	
 	public Portal(int x, int y, int w, int h, String name, int moveX, int moveY, int levelNum)
@@ -18,5 +18,27 @@ public class Portal extends Model {
 		newX = moveX;
 		newY = moveY;
 		level = levelNum;
+	}
+	
+	public int getLevel()
+	{
+		if(level != 1 && newX == 0 && newY == 0)
+		{
+			return level;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	
+	public int getNewX()
+	{
+		return newX;
+	}
+	
+	public int getNewY()
+	{
+		return newY;
 	}
 }
