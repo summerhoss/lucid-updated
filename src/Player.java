@@ -206,6 +206,7 @@ public class Player extends Model implements KeyListener {
 	
 	public void run(Level l)
 	{
+		System.out.println(getX() + " " + getY());
 		this.manageCollisions(l);
 		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		changeImage();

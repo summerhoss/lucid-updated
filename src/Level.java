@@ -24,7 +24,9 @@ public class Level
 	{
 		if(levelNum == 1)
 			if(lucy.getX() >= 900 && lucy.getY() <= 100)
+			{
 				complete = true;
+			}
 	}
 
 	public ArrayList<Model> getGameObjects()
