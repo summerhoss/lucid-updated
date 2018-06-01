@@ -150,18 +150,19 @@ public class View extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
+		/*
 		for(Model m: level.getGameObjects())
 		{
 			if(m instanceof Player)
 			{
 				((Player)m).run(level);
 			}
-			if(m instanceof Platform)
+			else
 			{
-				if(m instanceof Cloud)
-					((Cloud) m).run();
+				m.run();
 			}
 		}
+		*/
 		repaint();
 		
 	}

@@ -22,13 +22,13 @@ public class Portal extends Model {
 	
 	public int getLevel()
 	{
-		if(level != 1 && newX == 0 && newY == 0)
+		if(level != 0 && newX == 0 && newY == 0)
 		{
 			return level;
 		}
 		else
 		{
-			return 1;
+			return 0;
 		}
 	}
 	

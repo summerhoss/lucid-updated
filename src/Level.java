@@ -24,20 +24,6 @@ public class Level
 	{
 		complete = value;
 	}
-	
-	public void complete()
-	{
-		levelNum = 1;
-		
-		//if(levelNum == 1)
-			
-			/*
-			if(lucy.getX() >= 900 && lucy.getY() <= 100)
-			{
-				complete = true;
-			}
-			*/
-	}
 
 	public ArrayList<Model> getGameObjects()
 	{
@@ -81,8 +67,6 @@ public class Level
 		lucy = new Player(100, 575, 37, 75, "char");
 		gameObjects.add(lucy);
 		gameObjects.add(new Gem(400, 100, 25, 25, "gemState1"));
-		
-		//create portal to next level
 		gameObjects.add(new Portal(870,115,25,25,"none",0,0,2));
 		
 		levelNum = 1;

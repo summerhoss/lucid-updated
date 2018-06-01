@@ -180,7 +180,7 @@ public class Player extends Model implements KeyListener {
 				else if(m instanceof Portal)
 				{
 					nextLevel = ((Portal) m).getLevel();
-					System.out.println("collided with portal");
+					//System.out.println("collided with portal");
 				}
 				else
 				{
@@ -231,6 +231,7 @@ public class Player extends Model implements KeyListener {
 		if(nextLevel == 2)
 		{
 			l.setComplete(true);
+			System.out.println(l.isComplete());
 			//this.setLocation(100, 575);
 		}
 		
