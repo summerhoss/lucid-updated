@@ -129,18 +129,15 @@ public class Player extends Model implements KeyListener {
 		int diff3;
 		int diff4;
 
+		ArrayList<Model> remList = new ArrayList<Model>();
+
 		for(Model m : collisions)
 		{	
 			//withUni = false;
-			
+
 			if(!(m instanceof Player))
 			{
-				if(m instanceof Flower)
-				{
-					((Flower)m).grow(seed, 375, 125, 75, 50, "flower");
-					seed = -1;
-				}
-				else if(m instanceof Platform)
+				if(m instanceof Platform)
 				{
 					diff1 = (int)this.getY() - (int)m.getMaxY();
 					diff2 = (int)this.getX() - (int)m.getMaxX();
@@ -174,21 +171,32 @@ public class Player extends Model implements KeyListener {
 						left = true;
 						//System.out.println("left");
 					}
-					
+
 					if(m instanceof Cloud)
 					{
 						this.push();
 					}
+					
+					if(m instanceof Flower)
+					{
+						if(seed == 1)
+						{
+							((Flower)m).grow(seed, 375, 125, 75, 50, "flower");
+							seed = -1;
+						}
+					}
 				}
 				else if(m instanceof Gem)
 				{
-					m.collidedAction();
+					//m.collidedAction();
+					remList.add((Model)m);
 					incrementCount();
 					incrementCount();
 					incrementCount();
 				}
 				else if(m instanceof Seed)
 				{
+					remList.add((Model)m);
 					m.collidedAction();
 					seed++;
 				}
@@ -206,6 +214,11 @@ public class Player extends Model implements KeyListener {
 					m.collidedAction();
 				}
 			}
+		}
+
+		for(Model r : remList)
+		{
+			l.removeGameObject(r);
 		}
 	}
 
@@ -241,19 +254,24 @@ public class Player extends Model implements KeyListener {
 		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		changeImage();
 		//Set booleans and manage position based on collisions calculated in manageCollisions
-		
-		if(this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 900)
+
+		//System.out.println(l.getLevelNum());
+		if(l.getLevelNum() == 1 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
 			this.setLocation(100, 575);
 		}
-		
+		else if(l.getLevelNum() == 2 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
+		{
+			this.setLocation(825, 575);
+		}
+
 		if(nextLevel == 2)
 		{
 			l.setComplete(true);
-			System.out.println(l.isComplete());
+			//System.out.println(l.isComplete());
 			//this.setLocation(100, 575);
 		}
-		
+
 		if(top)
 		{
 			falling = false;
@@ -277,6 +295,7 @@ public class Player extends Model implements KeyListener {
 		//Determine falling and jumping
 		if(!top && !jumping)
 		{
+			//System.out.println("Falling? " + falling);
 			falling = true;
 		}
 		else if(top && upPressed && !jumping && !falling)
@@ -319,7 +338,7 @@ public class Player extends Model implements KeyListener {
 		if(leftPressed || rightPressed)
 			stepCounter++;
 	}
-	
+
 	public void push()
 	{
 		if(left)
@@ -405,12 +424,12 @@ public class Player extends Model implements KeyListener {
 			break;
 		}
 	}
-	
+
 	public boolean withUni()
 	{
 		return withUni;
 	}
-	
+
 	public void setUni(Boolean b)
 	{
 		withUni = b;

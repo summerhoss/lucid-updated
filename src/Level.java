@@ -27,7 +27,7 @@ public class Level
 		complete = value;
 	}
 
-	public ArrayList<Model> getGameObjects()
+	public static ArrayList<Model> getGameObjects()
 	{
 		return gameObjects;
 	}
@@ -35,6 +35,11 @@ public class Level
 	public static void addGameObject(Model m)
 	{
 		gameObjects.add((Model)m);
+	}
+	
+	public static void removeGameObject(Model m)
+	{
+		gameObjects.remove((Model)m);
 	}
 
 	public void createLevel1()
@@ -78,9 +83,19 @@ public class Level
 	public void createLevel2()
 	{
 		levelNum = 2;
+		//clear ArrayList
 		gameObjects = new ArrayList<Model>();
+		
+		//create characters and objects
 		lucy = new Player(825, 75, 37, 75, "char");
 		gameObjects.add(lucy);
+		
+		//create platforms
+		
+		
+		//create ground
+		for(int x = 400; x < 900; x += 50)
+			gameObjects.add(new Platform(x, 663, 75, 37, "blackplat"));
 	}
 	
 	public int getLevelNum()

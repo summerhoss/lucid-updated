@@ -1,15 +1,11 @@
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
 
 public class Flower extends Platform
 {
-	private boolean grown;
 	
 	public Flower(int x, int y, int w, int h, String image)
 	{
 		super(x, y, w, h, image);
-		grown = false;
 	}
 	
 	public void grow(int seed, int newX, int newY, int newW, int newH, String i)

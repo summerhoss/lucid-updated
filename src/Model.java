@@ -41,8 +41,10 @@ public abstract class Model extends Rectangle {
 	public ArrayList<Model> checkCollisions(ArrayList<Model> list)
 	{
 		ArrayList<Model> collided = new ArrayList<Model>();
-		for(Model m : list)
+		Model m;
+		for(int i = 0; i < list.size(); i++)
 		{
+			m = list.get(i);
 			if(this.intersects(m))
 			{
 				collided.add(m);
