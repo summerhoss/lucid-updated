@@ -17,10 +17,13 @@ public abstract class Model extends Rectangle {
 	{
 		super(x, y, w, h);
 		
+		if(!name.equals("none"))
+		{
 		ClassLoader cldr = getClass().getClassLoader();
 		
 		ImageIcon icon = new ImageIcon(cldr.getResource(name + ".png"));
 		image = icon.getImage();
+		}
 		
 		exists = true;
 	}

@@ -30,6 +30,7 @@ public class Player extends Model implements KeyListener {
 	private Image lStep2;
 	private int stepCounter;
 	private boolean withUni;
+	private int nextLevel;
 
 	public Player(int x, int y, int w, int h, String image)
 	{
@@ -64,6 +65,7 @@ public class Player extends Model implements KeyListener {
 		right = false;
 		stepCounter = 0;
 		withUni = false;
+		nextLevel = 0;
 	}
 
 	public String getCount()
@@ -172,6 +174,11 @@ public class Player extends Model implements KeyListener {
 						left = true;
 						//System.out.println("left");
 					}
+					
+					if(m instanceof Cloud)
+					{
+						this.push();
+					}
 				}
 				else if(m instanceof Gem)
 				{
@@ -188,6 +195,11 @@ public class Player extends Model implements KeyListener {
 				else if(m instanceof Unicorn)
 				{
 					setUni(true);
+				}
+				else if(m instanceof Portal)
+				{
+					nextLevel = ((Portal) m).getLevel();
+					//System.out.println("collided with portal");
 				}
 				else
 				{
@@ -229,6 +241,19 @@ public class Player extends Model implements KeyListener {
 		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		changeImage();
 		//Set booleans and manage position based on collisions calculated in manageCollisions
+		
+		if(this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 900)
+		{
+			this.setLocation(100, 575);
+		}
+		
+		if(nextLevel == 2)
+		{
+			l.setComplete(true);
+			System.out.println(l.isComplete());
+			//this.setLocation(100, 575);
+		}
+		
 		if(top)
 		{
 			falling = false;
@@ -294,8 +319,21 @@ public class Player extends Model implements KeyListener {
 		if(leftPressed || rightPressed)
 			stepCounter++;
 	}
+	
+	public void push()
+	{
+		if(left)
+		{
+			this.setLocation((int)(this.getX()-1), (int)(this.getY()));
+			//System.out.println("left cloud");
+		}
+		else if(right)
+		{
+			this.setLocation((int)(this.getX()+1), (int)(this.getY()));
+			//System.out.println("right cloud");
+		}
+	}
 
-	@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode())
 		{

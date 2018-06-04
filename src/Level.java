@@ -22,13 +22,9 @@ public class Level
 		return complete;
 	}
 	
-	public void complete()
+	public void setComplete(boolean value)
 	{
-		if(levelNum == 1)
-			if(lucy.getX() >= 900 && lucy.getY() <= 100)
-			{
-				complete = true;
-			}
+		complete = value;
 	}
 
 	public ArrayList<Model> getGameObjects()
@@ -71,9 +67,10 @@ public class Level
 		gameObjects.add(new Platform(825, 150, 75, 37, "platform"));
 
 		//create characters and objects
-		lucy = new Player(825, 75, 37, 75, "char");
+		lucy = new Player(100, 575, 37, 75, "char");
 		gameObjects.add(lucy);
 		gameObjects.add(new Gem(400, 100, 25, 25, "gemState1"));
+		gameObjects.add(new Portal(870,115,25,25,"none",0,0,2));
 		
 		levelNum = 1;
 	}
