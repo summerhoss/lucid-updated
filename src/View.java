@@ -136,7 +136,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 			//if(m.exists())
 			g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
 			if(m instanceof Player)
-				countLabel = new JLabel(((Player) m).getCount());
+				countLabel.setText(((Player) m).getCount());
 		}
 		g.drawString(countLabel.getText(), 25, 75);
 	}
