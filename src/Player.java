@@ -120,6 +120,7 @@ public class Player extends Model implements KeyListener {
 		int diff2;
 		int diff3;
 		int diff4;
+		ArrayList<Model> remList = new ArrayList<Model>();
 		
 		for(Model m : collisions)
 		{	
@@ -167,13 +168,15 @@ public class Player extends Model implements KeyListener {
 				}
 				else if(m instanceof Gem)
 				{
-					m.collidedAction();
+					//m.collidedAction();
+					remList.add((Model)m);
 					incrementCount();
 					incrementCount();
 					incrementCount();
 				}
 				else if(m instanceof Seed)
 				{
+					remList.add((Model)m);
 					m.collidedAction();
 					incrementCount();
 				}
@@ -187,6 +190,11 @@ public class Player extends Model implements KeyListener {
 					m.collidedAction();
 				}
 			}
+		}
+		
+		for(Model r : remList)
+		{
+			l.removeGameObject(r);
 		}
 	}
 	
@@ -223,15 +231,20 @@ public class Player extends Model implements KeyListener {
 		changeImage();
 		//Set booleans and manage position based on collisions calculated in manageCollisions
 		
-		if(this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 900)
+		//System.out.println(l.getLevelNum());
+		if(l.getLevelNum() == 1 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
 			this.setLocation(100, 575);
+		}
+		else if(l.getLevelNum() == 2 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
+		{
+			this.setLocation(825, 575);
 		}
 		
 		if(nextLevel == 2)
 		{
 			l.setComplete(true);
-			System.out.println(l.isComplete());
+			//System.out.println(l.isComplete());
 			//this.setLocation(100, 575);
 		}
 		
@@ -258,6 +271,7 @@ public class Player extends Model implements KeyListener {
 		//Determine falling and jumping
 		if(!top && !jumping)
 		{
+			//System.out.println("Falling? " + falling);
 			falling = true;
 		}
 		else if(top && upPressed && !jumping && !falling)

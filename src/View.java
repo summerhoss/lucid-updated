@@ -26,6 +26,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private JLabel countLabel;
 	private Image gem;
 	private JPanel panel;
+	private Image blackplat;
 
 	public View(Level lv)
 	{
@@ -60,6 +61,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 		sign = signIcon.getImage();
 		ImageIcon seedIcon = new ImageIcon(cldr.getResource("seed.png"));
 		seed = seedIcon.getImage();
+		ImageIcon blackplatIcon = new ImageIcon(cldr.getResource("blackplat.png"));
+		blackplat = blackplatIcon.getImage();
 
 		//counters
 		countLabel = new JLabel("Count: 0");
@@ -106,7 +109,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 
 	public void paintOffScreen(Graphics g)
 	{
-		Model temp = null;
 		// sometimes helpful to do this first to clear things:
 		//g.clearRect(0, 0, 800, 800);
 	
@@ -127,16 +129,15 @@ public class View extends JFrame implements ActionListener, KeyListener
 		}
 
 		//platforms
-		for(Model m: level.getGameObjects())
+		Model m;
+		for(int i = 0; i < level.getGameObjects().size(); i++)
 		{
-			if(m.exists())
-				g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
-			if(m.exists() == false)
-				temp = m;
+			m = level.getGameObjects().get(i);
+			//if(m.exists())
+			g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
 			if(m instanceof Player)
 				countLabel = new JLabel(((Player) m).getCount());
 		}
-		level.getGameObjects().remove(temp);
 		g.drawString(countLabel.getText(), 25, 75);
 	}
 
@@ -150,19 +151,28 @@ public class View extends JFrame implements ActionListener, KeyListener
 	@Override
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		/*
-		for(Model m: level.getGameObjects())
+		Model m;
+		if(!level.isComplete())
 		{
-			if(m instanceof Player)
+			for(int i = 0; i < level.getGameObjects().size(); i++)
 			{
-				((Player)m).run(level);
-			}
-			else
-			{
-				m.run();
+				m = level.getGameObjects().get(i);
+				if(m instanceof Player)
+				{
+					((Player)m).run(level);
+				}
+				else
+				{
+					m.run();
+				}
 			}
 		}
-		*/
+		else
+		{
+			level.createLevel2();
+			this.setLevel(level);
+			level.setComplete(false);
+		}
 		repaint();
 		
 	}
