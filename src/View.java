@@ -27,7 +27,11 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image gem;
 	private JPanel panel;
 	private Image blackplat;
-
+	private Image hand;
+	private Image wrist;
+	private Image crazy_flower;
+	private Image badUni;
+	
 	public View(Level lv)
 	{
 		panel = new JPanel();
@@ -63,6 +67,14 @@ public class View extends JFrame implements ActionListener, KeyListener
 		seed = seedIcon.getImage();
 		ImageIcon blackplatIcon = new ImageIcon(cldr.getResource("blackplat.png"));
 		blackplat = blackplatIcon.getImage();
+		ImageIcon handIcon = new ImageIcon(cldr.getResource("hand.png"));
+		hand = handIcon.getImage();
+		ImageIcon wristIcon = new ImageIcon(cldr.getResource("wrist.png"));
+		wrist = wristIcon.getImage();
+		ImageIcon crazyFlowerIcon = new ImageIcon(cldr.getResource("crazy_flower.png"));
+		crazy_flower = crazyFlowerIcon.getImage();
+		ImageIcon badUniIcon = new ImageIcon(cldr.getResource("badUni.png"));
+		badUni = badUniIcon.getImage();
 
 		//counters
 		countLabel = new JLabel("Count: 0");
@@ -126,6 +138,9 @@ public class View extends JFrame implements ActionListener, KeyListener
 		else if(level.getLevelNum() == 2)
 		{
 			g.drawImage(bg2, 0, 0, guiWidth, guiHeight, null);
+			g.drawImage(wrist, 675, 600, 35, 80, null);
+			g.drawImage(gem,325,125,25,25,null);
+			g.drawImage(sign,50,150,50,50,null);
 		}
 
 		//platforms
