@@ -44,9 +44,7 @@ public class Level
 
 	public void createLevel1()
 	{
-		//level 1
-		//ArrayList<Platform> plats = new ArrayList<Platform>();
-		//ArrayList<Cloud> clouds = new ArrayList<Cloud>();
+		levelNum = 1;
 
 		//ground
 		for(int x = 0; x < 900; x += 50)
@@ -76,8 +74,6 @@ public class Level
 		gameObjects.add(lucy);
 		gameObjects.add(new Gem(400, 100, 25, 25, "gemState1"));
 		gameObjects.add(new Portal(870,115,25,25,"none",0,0,2));
-		
-		levelNum = 1;
 	}
 
 	public void createLevel2()
@@ -89,13 +85,15 @@ public class Level
 		//create characters and objects
 		lucy = new Player(825, 75, 37, 75, "char");
 		gameObjects.add(lucy);
+		gameObjects.add(new Gem(350, 375, 25, 25, "gemState1"));
+		gameObjects.add(new Unicorn(650,140,75,75,"badUni"));
+		//gameObjects.add(new Seed(150, 335, 15, 15, "seed"));
 		
 		//create platforms
-		gameObjects.add(new Platform(500,475,75,37,"blackplat"));
-		gameObjects.add(new Platform(650,525,75,75,"hand"));
+		gameObjects.add(new Platform(515,475,75,37,"blackplat"));
+		gameObjects.add(new Platform(650,500,75,75,"hand"));
 		gameObjects.add(new Platform(575,315,75,37, "blackplat"));
 		gameObjects.add(new Platform(650,215,75,37,"blackplat"));
-		gameObjects.add(new Platform(650,125,90,60,"crazy_flower"));
 		gameObjects.add(new Cloud(375,245,75,50,"cloud",400,500));
 		gameObjects.add(new Platform(300,150,75,37,"blackplat"));
 		gameObjects.add(new Portal(300,100,75,50,"none",825,588,0));
@@ -103,16 +101,32 @@ public class Level
 		gameObjects.add(new Platform(0,200,100,37,"blackplat"));
 		gameObjects.add(new Platform(225,500,75,37,"blackplat"));
 		gameObjects.add(new Platform(175,350,37,37,"blackplat"));
-		gameObjects.add(new Portal(100,200,75,100,"none",50,237,0));
+		gameObjects.add(new Portal(100,200,75,100,"none",50,225,0));
+		gameObjects.add(new Portal(0,0,100,200,"gemState1",0,0,3));
 		
 		//create ground
 		for(int x = 400; x < 900; x += 50)
 			gameObjects.add(new Platform(x, 663, 75, 37, "blackplat"));
 	}
 	
+	public void createLevel3()
+	{
+		levelNum = 3;
+		gameObjects = new ArrayList<Model>();
+		
+		//create characters and objects
+		lucy = new Player(450, 0, 37, 75, "char");
+		gameObjects.add(lucy);
+	}
+	
 	public int getLevelNum()
 	{
 		return levelNum;
+	}
+	
+	public void setLevelNum(int num)
+	{
+		levelNum = num;
 	}
 
 	public Player getPlayer()

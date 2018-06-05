@@ -4,6 +4,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Player extends Model implements KeyListener {
 
@@ -277,6 +279,10 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation(825, 575);
 		}
+		else if(l.getLevelNum() == 2 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
+		{
+			JOptionPane.showMessageDialog(new JFrame(), "LUCY", "WAKE UP!",JOptionPane.PLAIN_MESSAGE);
+		}
 
 		if(nextLevel == 2)
 		{
@@ -284,8 +290,12 @@ public class Player extends Model implements KeyListener {
 			//System.out.println(l.isComplete());
 			//this.setLocation(100, 575);
 		}
+		else if(nextLevel == 3)
+		{
+			l.setComplete(true);
+		}
 		
-		if(l.getLevelNum() == 2 && teleport)
+		if(teleport)
 		{
 			this.setLocation(teleX,teleY);
 			teleport = false;

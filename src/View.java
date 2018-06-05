@@ -136,15 +136,22 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(stick, 312, 550, 30, 125, null);
 			g.drawImage(stick2, 190, 475, 40, 200, null);
 			
+			/*
 			if(level.getPlayer().hasSeed() == -1)
 				g.drawImage(vine, 395, 150, 30, 75, null);
+				*/
 		}
 		else if(level.getLevelNum() == 2)
 		{
 			g.drawImage(bg2, 0, 0, guiWidth, guiHeight, null);
-			g.drawImage(wrist, 675, 600, 35, 80, null);
+			g.drawImage(wrist, 675, 575, 35, 105, null);
 			g.drawImage(gem,325,125,25,25,null);
 			g.drawImage(sign,50,150,50,50,null);
+		}
+		else if(level.getLevelNum() == 3)
+		{
+			g.drawImage(bg2,0,0,guiWidth,guiHeight,null);
+			
 		}
 
 		//platforms
@@ -188,9 +195,26 @@ public class View extends JFrame implements ActionListener, KeyListener
 		}
 		else
 		{
+			level.setLevelNum(2);
 			level.createLevel2();
 			this.setLevel(level);
 			level.setComplete(false);
+			/*
+			if(level.getLevelNum() == 1)
+			{
+				level.setLevelNum(2);
+				level.createLevel2();
+				this.setLevel(level);
+				level.setComplete(false);
+			}
+			else if(level.getLevelNum() == 2)
+			{
+				level.setLevelNum(3);
+				level.createLevel3();
+				this.setLevel(level);
+				level.setComplete(false);
+			}
+			*/
 		}
 		repaint();
 
