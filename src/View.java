@@ -1,4 +1,4 @@
- import java.awt.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -70,7 +70,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 		dialogue.setPreferredSize(new Dimension(400, 300));
 		dialogue.getContentPane().add(talk, BorderLayout.CENTER);
 		dialogue.pack();
-		
+
 		//counters
 		countLabel = new JLabel("Count: 0");
 		panel.add(countLabel);
@@ -89,6 +89,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 		setSize(guiWidth,guiHeight);
 		setVisible(true);
 
+		//playMusic();
 	}
 
 	public void setLevel(Level l)
@@ -123,7 +124,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(sign, 800, 100, 50, 50, null);
 			g.drawImage(stick, 312, 550, 30, 125, null);
 			g.drawImage(stick2, 190, 475, 40, 200, null);
-			
+
 			if(level.getPlayer().hasSeed() == -1)
 				g.drawImage(vine, 395, 150, 30, 75, null);
 		}
@@ -217,7 +218,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 			level.getPlayer().setUni(false);
 			break;
 		}
-			
+
 		}
 
 	}
@@ -225,6 +226,28 @@ public class View extends JFrame implements ActionListener, KeyListener
 	public void keyTyped(KeyEvent e) 
 	{
 	}
-	
 
+	private class Sound
+	{
+		private AudioStream song;
+		
+		public void playMusic() 
+		{
+			try
+			{
+				// get the sound file as a resource out of my jar file;
+				// the sound file must be in the same directory as this class file.
+				// the input stream portion of this recipe comes from a javaworld.com article.
+				InputStream inputStream = getClass().getResourceAsStream("air.wav");
+				song = new AudioStream(inputStream);
+				//AudioPlayer.player.start(audioStream);
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
+		}
+		
+	}
 }
