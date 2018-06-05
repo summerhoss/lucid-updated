@@ -6,6 +6,7 @@ public class Level
 	private Player lucy;
 	private int levelNum;
 	private boolean complete;
+	private boolean flowerGrown;
 
 	public Level()
 	{
@@ -13,6 +14,7 @@ public class Level
 		lucy = null;
 		levelNum = 0;
 		complete = false;
+		flowerGrown = false;
 	}
 	
 	public boolean isComplete()
@@ -61,7 +63,8 @@ public class Level
 		gameObjects.add(new Seed(50, 135, 15, 15, "seed"));
 		gameObjects.add(new Cloud(212, 200, 75, 50, "cloud", 212, 300));
 		gameObjects.add(new Platform(375, 225, 75, 37, "platform"));
-		gameObjects.add(new Platform(375, 125, 75, 50, "flower"));
+		gameObjects.add(new Flower(400, 210, 40, 15, "dirt"));
+		gameObjects.add(new Unicorn(800, 588, 75, 75, "Unicorn"));
 		gameObjects.add(new Platform(663, 525, 75, 37, "treeplat"));
 		gameObjects.add(new Cloud(650, 375, 75, 50, "cloud", 550, 675));
 		gameObjects.add(new Platform(700, 225, 37, 37, "platform"));

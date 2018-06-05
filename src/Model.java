@@ -7,12 +7,6 @@ import javax.swing.ImageIcon;
 public abstract class Model extends Rectangle {
 	Image image;
 	Boolean exists;
-	/*
-	private int myX;
-	private int myY;
-	private int myW;
-	private int myH;
-	*/
 	
 	public Model()
 	{
@@ -22,12 +16,6 @@ public abstract class Model extends Rectangle {
 	public Model(int x, int y, int w, int h, String name)
 	{
 		super(x, y, w, h);
-		/*
-		myX = x;
-		myY = y;
-		myW = w;
-		myH = h;
-		*/
 		
 		if(!name.equals("none"))
 		{

@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 public class Player extends Model implements KeyListener {
 
 	private int count;
+	private int seed;
 	private boolean leftPressed;
 	private boolean rightPressed;
 	private boolean upPressed;
@@ -28,6 +29,7 @@ public class Player extends Model implements KeyListener {
 	private Image lStep1;
 	private Image lStep2;
 	private int stepCounter;
+	private boolean withUni;
 	private int nextLevel;
 	private boolean teleport;
 	private int teleX;
@@ -65,6 +67,7 @@ public class Player extends Model implements KeyListener {
 		left = false;
 		right = false;
 		stepCounter = 0;
+		withUni = false;
 		nextLevel = 0;
 		teleport = false;
 		teleX = 0;
@@ -80,7 +83,12 @@ public class Player extends Model implements KeyListener {
 	{
 		count++;
 	}
-	
+
+	public int hasSeed()	
+	{
+		return seed;
+	}
+
 	public void changeImage()
 	{
 		if(rightPressed)
@@ -94,7 +102,7 @@ public class Player extends Model implements KeyListener {
 			else
 				image = lookRight;		
 		}
-		
+
 		else if(leftPressed)
 		{
 			if(stepCounter >= 60)	
@@ -106,10 +114,10 @@ public class Player extends Model implements KeyListener {
 			else
 				image = lookLeft;		
 		}
-		
+
 		if(stepCounter >= 80)
 			stepCounter = 0;
-		
+
 	}
 
 	public void manageCollisions(Level l)
@@ -126,10 +134,13 @@ public class Player extends Model implements KeyListener {
 		int diff2;
 		int diff3;
 		int diff4;
+
 		ArrayList<Model> remList = new ArrayList<Model>();
-		
+
 		for(Model m : collisions)
 		{	
+			//withUni = false;
+
 			if(!(m instanceof Player))
 			{
 				if(m instanceof Platform)
@@ -143,8 +154,8 @@ public class Player extends Model implements KeyListener {
 					System.out.println("right = " + diff2);
 					System.out.println("left = " + diff3);
 					System.out.println("top = " + diff4);
-					*/
-					
+					 */
+
 					if(diff4<0 && diff4>-10)
 					{
 						top = true;
@@ -166,10 +177,19 @@ public class Player extends Model implements KeyListener {
 						left = true;
 						//System.out.println("left");
 					}
-					
+
 					if(m instanceof Cloud)
 					{
 						this.push();
+					}
+					
+					if(m instanceof Flower)
+					{
+						if(seed == 1)
+						{
+							((Flower)m).grow(seed, 375, 125, 75, 50, "flower");
+							seed = -1;
+						}
 					}
 				}
 				else if(m instanceof Gem)
@@ -184,7 +204,11 @@ public class Player extends Model implements KeyListener {
 				{
 					remList.add((Model)m);
 					m.collidedAction();
-					incrementCount();
+					seed++;
+				}
+				else if(m instanceof Unicorn)
+				{
+					setUni(true);
 				}
 				else if(m instanceof Portal)
 				{
@@ -203,13 +227,13 @@ public class Player extends Model implements KeyListener {
 				}
 			}
 		}
-		
+
 		for(Model r : remList)
 		{
 			l.removeGameObject(r);
 		}
 	}
-	
+
 	public void jump()
 	{
 		//Set max jump height
@@ -229,20 +253,20 @@ public class Player extends Model implements KeyListener {
 			this.setLocation((int)(this.getX()), (int)(this.getY()-10));
 		}
 	}
-	
+
 	public void fall()
 	{
 		//Continuously  moves player downward
 		this.setLocation((int)(this.getX()), (int)(this.getY()+fallDist));
 	}
-	
+
 	public void run(Level l)
 	{
 		this.manageCollisions(l);
 		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		changeImage();
 		//Set booleans and manage position based on collisions calculated in manageCollisions
-		
+
 		//System.out.println(l.getLevelNum());
 		if(l.getLevelNum() == 1 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
@@ -253,7 +277,7 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation(825, 575);
 		}
-		
+
 		if(nextLevel == 2)
 		{
 			l.setComplete(true);
@@ -280,14 +304,14 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist+1));
 		}
-		
+
 		/*
 		 * if(top || left || right || bottom)
 		{
 			jumping = false;
 		}
 		 */
-		
+
 		//Determine falling and jumping
 		if(!top && !jumping)
 		{
@@ -302,7 +326,7 @@ public class Player extends Model implements KeyListener {
 			}
 			jumping = true;
 		}
-		
+
 		//Jumping and falling
 		if(falling)
 		{
@@ -330,11 +354,11 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
 		}
-		
+
 		if(leftPressed || rightPressed)
 			stepCounter++;
 	}
-	
+
 	public void push()
 	{
 		if(left)
@@ -348,8 +372,7 @@ public class Player extends Model implements KeyListener {
 			//System.out.println("right cloud");
 		}
 	}
-	
-	@Override
+
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode())
 		{
@@ -363,9 +386,9 @@ public class Player extends Model implements KeyListener {
 			upPressed = true;
 			break;
 		}
-	
+
 	}
-	
+
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode())
@@ -380,16 +403,16 @@ public class Player extends Model implements KeyListener {
 			upPressed = false;
 			break;
 		}
-	
+
 	}
-	
+
 	@Override
 	public void keyTyped(KeyEvent e) 
 	{
 		// TODO Auto-generated method stub
-	
+
 	}
-	
+
 	public void setTrue(int dir)
 	{
 		switch(dir)
@@ -405,7 +428,7 @@ public class Player extends Model implements KeyListener {
 			break;
 		}
 	}
-	
+
 	public void setFalse(int dir)
 	{
 		switch(dir)
@@ -420,5 +443,15 @@ public class Player extends Model implements KeyListener {
 			upPressed = false;
 			break;
 		}
+	}
+
+	public boolean withUni()
+	{
+		return withUni;
+	}
+
+	public void setUni(Boolean b)
+	{
+		withUni = b;
 	}
 }

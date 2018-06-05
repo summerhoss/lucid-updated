@@ -1,8 +1,10 @@
-import java.awt.*;
+ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.*;
+import sun.audio.*;
 
 import javax.swing.*;
 
@@ -13,19 +15,18 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private int guiHeight;
 	private Image bg;
 	private Image bg2;
-	private Image uni;
 	private Image tree;
 	private Image vine;
 	private Image stick;
 	private Image stick2;
 	private Image sign;
 	private Image seed;
-
 	private Timer timer;
-	private int state;
 	private JLabel countLabel;
 	private Image gem;
 	private JPanel panel;
+	private JFrame dialogue;
+	private JLabel talk;
 	private Image blackplat;
 	private Image hand;
 	private Image wrist;
@@ -35,10 +36,12 @@ public class View extends JFrame implements ActionListener, KeyListener
 	public View(Level lv)
 	{
 		panel = new JPanel();
+		dialogue = new JFrame("Bob the Unicorn");
 		level = lv;
 
 		//close window
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		dialogue.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		//to load images
 		ClassLoader cldr = getClass().getClassLoader();
@@ -48,9 +51,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 		bg = bgIcon.getImage();
 		ImageIcon bg2Icon = new ImageIcon(cldr.getResource("bg2.png"));
 		bg2 = bg2Icon.getImage();
-		ImageIcon char2Icon = new ImageIcon(cldr.getResource("char2.png"));
-		ImageIcon uniIcon = new ImageIcon(cldr.getResource("unicorn.png"));
-		uni = uniIcon.getImage();
 		ImageIcon treeIcon = new ImageIcon(cldr.getResource("tree.png"));
 		tree = treeIcon.getImage();
 		ImageIcon gemIcon = new ImageIcon(cldr.getResource("gemState1.png"));
@@ -76,21 +76,24 @@ public class View extends JFrame implements ActionListener, KeyListener
 		ImageIcon badUniIcon = new ImageIcon(cldr.getResource("badUni.png"));
 		badUni = badUniIcon.getImage();
 
+		//unicorn dialogue
+		talk = new JLabel("Hi! I'm Bob the Unicorn.");
+		talk.setFont(new Font("", Font.BOLD, 20));
+		dialogue.setPreferredSize(new Dimension(400, 300));
+		dialogue.getContentPane().add(talk, BorderLayout.CENTER);
+		dialogue.pack();
+		
 		//counters
 		countLabel = new JLabel("Count: 0");
 		panel.add(countLabel);
 
-		//initialize and start timer
+		//initialize and start ]=
 		timer = new Timer(10, this);
 		timer.start();
-
-		//initialize boolean
-		state = 0;
 
 		//set size
 		guiWidth = 900; //old val: 1300
 		guiHeight = 700; //old val: 1000
-		//1280�720
 
 		addKeyListener(this);
 
@@ -104,7 +107,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	{
 		level = l;
 	}
-	
+
 	public void paint(Graphics g)
 	{
 		Image offImage = createImage(900, 700);
@@ -123,17 +126,18 @@ public class View extends JFrame implements ActionListener, KeyListener
 	{
 		// sometimes helpful to do this first to clear things:
 		//g.clearRect(0, 0, 800, 800);
-	
+
 		if(level.getLevelNum() == 1)
 		{
 			g.drawImage(bg, 0, 0, guiWidth, guiHeight, null);
-			g.drawImage(uni, 800, 588, 75, 75, null);
 			g.drawImage(tree, 650, 500, 100, 165, null);
-			g.drawImage(vine, 395, 150, 30, 75, null);
 			g.drawImage(sign, 550, 612, 50, 50, null);
 			g.drawImage(sign, 800, 100, 50, 50, null);
 			g.drawImage(stick, 312, 550, 30, 125, null);
 			g.drawImage(stick2, 190, 475, 40, 200, null);
+			
+			if(level.getPlayer().hasSeed() == -1)
+				g.drawImage(vine, 395, 150, 30, 75, null);
 		}
 		else if(level.getLevelNum() == 2)
 		{
@@ -151,7 +155,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 			//if(m.exists())
 			g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
 			if(m instanceof Player)
-				countLabel = new JLabel(((Player) m).getCount());
+				countLabel.setText(((Player) m).getCount());
 		}
 		g.drawString(countLabel.getText(), 25, 75);
 	}
@@ -189,7 +193,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 			level.setComplete(false);
 		}
 		repaint();
-		
+
 	}
 
 	@Override
@@ -221,13 +225,21 @@ public class View extends JFrame implements ActionListener, KeyListener
 		case KeyEvent.VK_UP:
 			level.getPlayer().setFalse(Moveable.U);
 			break;
+		case KeyEvent.VK_SPACE:
+		{
+			if(level.getPlayer().withUni())
+				dialogue.setVisible(true);
+			level.getPlayer().setUni(false);
+			break;
+		}
+			
 		}
 
 	}
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+	public void keyTyped(KeyEvent e) 
+	{
 	}
+	
 
 }
