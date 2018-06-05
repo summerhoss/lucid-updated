@@ -31,7 +31,10 @@ public class Player extends Model implements KeyListener {
 	private int stepCounter;
 	private boolean withUni;
 	private int nextLevel;
-
+	private boolean teleport;
+	private int teleX;
+	private int teleY;
+	
 	public Player(int x, int y, int w, int h, String image)
 	{
 		super(x,y,w,h,image);
@@ -66,6 +69,9 @@ public class Player extends Model implements KeyListener {
 		stepCounter = 0;
 		withUni = false;
 		nextLevel = 0;
+		teleport = false;
+		teleX = 0;
+		teleY = 0;
 	}
 
 	public String getCount()
@@ -207,6 +213,12 @@ public class Player extends Model implements KeyListener {
 				else if(m instanceof Portal)
 				{
 					nextLevel = ((Portal) m).getLevel();
+					if(nextLevel == 0)
+					{
+						teleport = true;
+						teleX = ((Portal)m).getNewX();
+						teleY = ((Portal)m).getNewY();
+					}
 					//System.out.println("collided with portal");
 				}
 				else
@@ -258,7 +270,8 @@ public class Player extends Model implements KeyListener {
 		//System.out.println(l.getLevelNum());
 		if(l.getLevelNum() == 1 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
-			this.setLocation(100, 575);
+			this.setLocation(800, 75);
+			//this.setLocation(100, 575);
 		}
 		else if(l.getLevelNum() == 2 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
@@ -271,7 +284,14 @@ public class Player extends Model implements KeyListener {
 			//System.out.println(l.isComplete());
 			//this.setLocation(100, 575);
 		}
-
+		
+		if(l.getLevelNum() == 2 && teleport)
+		{
+			this.setLocation(teleX,teleY);
+			teleport = false;
+			jumping = false;
+		}
+		
 		if(top)
 		{
 			falling = false;

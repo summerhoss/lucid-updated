@@ -6,9 +6,8 @@ public class Controller
 	
 	public static void main(String[] args)
 	{
-		Controller c = new Controller();
-		level.createLevel1();
-		
+		MainMenu menu = new MainMenu();
+	//	Controller c = new Controller();		
 	}
 	
 	public Controller()
