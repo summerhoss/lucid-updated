@@ -2,26 +2,35 @@ import javax.swing.ImageIcon;
 
 public class Flower extends Platform
 {
+	int nX;
+	int nY;
+	int nW;
+	int nH;
+	String nImage;
 	
-	public Flower(int x, int y, int w, int h, String image)
+	public Flower(int x, int y, int w, int h, String image, int newX, int newY, int newW, int newH, String newI)
 	{
 		super(x, y, w, h, image);
+		nX = newX;
+		nY = newY;
+		nW = newW;
+		nH = newH;
+		nImage = newI;
 	}
 	
-	public void grow(int seed, int newX, int newY, int newW, int newH, String i)
+	public void grow(int seed)
 	{
 		if(seed == 1)
 		{
 			ClassLoader cldr = getClass().getClassLoader();
 			
-			ImageIcon icon = new ImageIcon(cldr.getResource(i + ".png"));
+			ImageIcon icon = new ImageIcon(cldr.getResource(nImage + ".png"));
 			image = icon.getImage();
 			
-			x = newX;
-			y = newY;
-			width = newW;
-			height = newH;
-			System.out.println(getX() + " " + getY());
+			x = nX;
+			y = nY;
+			width = nW;
+			height = nH;
 		}
 	}
 }

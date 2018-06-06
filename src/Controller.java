@@ -6,9 +6,8 @@ public class Controller
 	
 	public static void main(String[] args)
 	{
-		Controller c = new Controller();
-		level.createLevel1();
-		
+		MainMenu menu = new MainMenu();
+	//	Controller c = new Controller();		
 	}
 	
 	public Controller()
@@ -17,38 +16,6 @@ public class Controller
 		viewer = new View(level);
 	}
 	
-	/*
-		if(!level.isComplete())
-		{
-			for(Model m: level.getGameObjects())
-			{
-				if(m instanceof Player)
-				{
-					((Player)m).run(level);
-				}
-				else
-				{
-					m.run();
-				}
-			}
-		}
-		else
-		{
-			level.createLevel2();
-			this.setLevel(level);
-			for(Model m: level.getGameObjects())
-			{
-				if(m instanceof Player)
-				{
-					((Player)m).run(level);
-				}
-				else
-				{
-					m.run();
-				}
-			}
-		}
-		repaint();
-	 */
+	
 	
 }

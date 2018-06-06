@@ -1,4 +1,4 @@
- import java.awt.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -32,7 +32,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image wrist;
 	private Image crazy_flower;
 	private Image badUni;
-	
+
 	public View(Level lv)
 	{
 		panel = new JPanel();
@@ -82,7 +82,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 		dialogue.setPreferredSize(new Dimension(400, 300));
 		dialogue.getContentPane().add(talk, BorderLayout.CENTER);
 		dialogue.pack();
-		
+
 		//counters
 		countLabel = new JLabel("Count: 0");
 		panel.add(countLabel);
@@ -101,6 +101,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 		setSize(guiWidth,guiHeight);
 		setVisible(true);
 
+		//playMusic();
 	}
 
 	public void setLevel(Level l)
@@ -135,11 +136,9 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(sign, 800, 100, 50, 50, null);
 			g.drawImage(stick, 312, 550, 30, 125, null);
 			g.drawImage(stick2, 190, 475, 40, 200, null);
-			
-			/*
+
 			if(level.getPlayer().hasSeed() == -1)
 				g.drawImage(vine, 395, 150, 30, 75, null);
-				*/
 		}
 		else if(level.getLevelNum() == 2)
 		{
@@ -186,6 +185,16 @@ public class View extends JFrame implements ActionListener, KeyListener
 				if(m instanceof Player)
 				{
 					((Player)m).run(level);
+				}
+				else if(m instanceof Unicorn && level.getLevelNum() == 2 && !level.getCutPlayed())
+				{
+					if(m.getX() > 400)
+					{
+						((Unicorn)m).walk();
+						repaint();
+					}
+					else
+						m.setImage("badUni");
 				}
 				else
 				{
@@ -250,7 +259,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 			level.getPlayer().setUni(false);
 			break;
 		}
-			
+
 		}
 
 	}
@@ -258,6 +267,5 @@ public class View extends JFrame implements ActionListener, KeyListener
 	public void keyTyped(KeyEvent e) 
 	{
 	}
-	
 
 }

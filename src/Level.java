@@ -7,6 +7,7 @@ public class Level
 	private int levelNum;
 	private boolean complete;
 	private boolean flowerGrown;
+	private boolean cutPlayed;
 
 	public Level()
 	{
@@ -15,6 +16,7 @@ public class Level
 		levelNum = 0;
 		complete = false;
 		flowerGrown = false;
+		cutPlayed = false;
 	}
 	
 	public boolean isComplete()
@@ -61,7 +63,7 @@ public class Level
 		gameObjects.add(new Seed(50, 135, 15, 15, "seed"));
 		gameObjects.add(new Cloud(212, 200, 75, 50, "cloud", 212, 300));
 		gameObjects.add(new Platform(375, 225, 75, 37, "platform"));
-		gameObjects.add(new Flower(400, 210, 40, 15, "dirt"));
+		gameObjects.add(new Flower(400, 210, 40, 15, "dirt", 375, 125, 75, 50, "flower"));
 		gameObjects.add(new Unicorn(800, 588, 75, 75, "Unicorn"));
 		gameObjects.add(new Platform(663, 525, 75, 37, "treeplat"));
 		gameObjects.add(new Cloud(650, 375, 75, 50, "cloud", 550, 675));
@@ -83,11 +85,13 @@ public class Level
 		gameObjects = new ArrayList<Model>();
 		
 		//create characters and objects
-		lucy = new Player(825, 75, 37, 75, "char");
+		lucy = new Player(825, 588, 37, 75, "char");
 		gameObjects.add(lucy);
 		gameObjects.add(new Gem(350, 375, 25, 25, "gemState1"));
 		gameObjects.add(new Unicorn(650,140,75,75,"badUni"));
 		//gameObjects.add(new Seed(150, 335, 15, 15, "seed"));
+		gameObjects.add(new Unicorn(800, 588, 75, 75, "Unicorn"));
+		gameObjects.add(new Seed(675, 200, 15, 15, "seed"));
 		
 		//create platforms
 		gameObjects.add(new Platform(515,475,75,37,"blackplat"));
@@ -103,6 +107,8 @@ public class Level
 		gameObjects.add(new Platform(175,350,37,37,"blackplat"));
 		//gameObjects.add(new Portal(100,200,75,100,"none",50,225,0));
 		gameObjects.add(new Portal(0,0,100,200,"gemState1",0,0,3));
+		gameObjects.add(new Flower(175, 335, 37, 15, "dirt", 150, 250, 75, 50, "crazy_flower"));
+		gameObjects.add(new Portal(100,200,75,100,"none",50,237,0));
 		
 		//create ground
 		for(int x = 400; x < 900; x += 50)
@@ -132,6 +138,21 @@ public class Level
 	public Player getPlayer()
 	{
 		return lucy;
+	}
+	
+	public void cutscene()
+	{
+		
+	}
+	
+	public boolean getCutPlayed()
+	{
+		return cutPlayed;
+	}
+	
+	public void cutPlayed()
+	{
+		cutPlayed = true;
 	}
 
 }
