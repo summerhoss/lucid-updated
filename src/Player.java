@@ -187,7 +187,7 @@ public class Player extends Model implements KeyListener {
 					{
 						if(seed == 1)
 						{
-							((Flower)m).grow(seed, 375, 125, 75, 50, "flower");
+							((Flower)m).grow(seed);
 							seed = -1;
 						}
 					}

@@ -7,6 +7,7 @@ public class Level
 	private int levelNum;
 	private boolean complete;
 	private boolean flowerGrown;
+	private boolean cutPlayed;
 
 	public Level()
 	{
@@ -15,6 +16,7 @@ public class Level
 		levelNum = 0;
 		complete = false;
 		flowerGrown = false;
+		cutPlayed = false;
 	}
 	
 	public boolean isComplete()
@@ -63,7 +65,7 @@ public class Level
 		gameObjects.add(new Seed(50, 135, 15, 15, "seed"));
 		gameObjects.add(new Cloud(212, 200, 75, 50, "cloud", 212, 300));
 		gameObjects.add(new Platform(375, 225, 75, 37, "platform"));
-		gameObjects.add(new Flower(400, 210, 40, 15, "dirt"));
+		gameObjects.add(new Flower(400, 210, 40, 15, "dirt", 375, 125, 75, 50, "flower"));
 		gameObjects.add(new Unicorn(800, 588, 75, 75, "Unicorn"));
 		gameObjects.add(new Platform(663, 525, 75, 37, "treeplat"));
 		gameObjects.add(new Cloud(650, 375, 75, 50, "cloud", 550, 675));
@@ -87,15 +89,16 @@ public class Level
 		gameObjects = new ArrayList<Model>();
 		
 		//create characters and objects
-		lucy = new Player(825, 75, 37, 75, "char");
+		lucy = new Player(825, 588, 37, 75, "char");
 		gameObjects.add(lucy);
+		gameObjects.add(new Unicorn(800, 588, 75, 75, "Unicorn"));
+		gameObjects.add(new Seed(675, 200, 15, 15, "seed"));
 		
 		//create platforms
 		gameObjects.add(new Platform(500,475,75,37,"blackplat"));
 		gameObjects.add(new Platform(650,525,75,75,"hand"));
 		gameObjects.add(new Platform(575,315,75,37, "blackplat"));
 		gameObjects.add(new Platform(650,215,75,37,"blackplat"));
-		gameObjects.add(new Platform(650,125,90,60,"crazy_flower"));
 		gameObjects.add(new Cloud(375,245,75,50,"cloud",400,500));
 		gameObjects.add(new Platform(300,150,75,37,"blackplat"));
 		gameObjects.add(new Portal(300,100,75,50,"none",825,588,0));
@@ -103,6 +106,7 @@ public class Level
 		gameObjects.add(new Platform(0,200,100,37,"blackplat"));
 		gameObjects.add(new Platform(225,500,75,37,"blackplat"));
 		gameObjects.add(new Platform(175,350,37,37,"blackplat"));
+		gameObjects.add(new Flower(175, 335, 37, 15, "dirt", 150, 250, 75, 50, "crazy_flower"));
 		gameObjects.add(new Portal(100,200,75,100,"none",50,237,0));
 		
 		//create ground
@@ -118,6 +122,21 @@ public class Level
 	public Player getPlayer()
 	{
 		return lucy;
+	}
+	
+	public void cutscene()
+	{
+		
+	}
+	
+	public boolean getCutPlayed()
+	{
+		return cutPlayed;
+	}
+	
+	public void cutPlayed()
+	{
+		cutPlayed = true;
 	}
 
 }

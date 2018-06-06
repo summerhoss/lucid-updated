@@ -32,7 +32,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image wrist;
 	private Image crazy_flower;
 	private Image badUni;
-	
+
 	public View(Level lv)
 	{
 		panel = new JPanel();
@@ -181,6 +181,16 @@ public class View extends JFrame implements ActionListener, KeyListener
 				{
 					((Player)m).run(level);
 				}
+				else if(m instanceof Unicorn && level.getLevelNum() == 2 && !level.getCutPlayed())
+				{
+					if(m.getX() > 400)
+					{
+						((Unicorn)m).walk();
+						repaint();
+					}
+					else
+						m.setImage("badUni");
+				}
 				else
 				{
 					m.run();
@@ -245,7 +255,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private class Sound
 	{
 		private AudioStream song;
-		
+
 		public void playMusic() 
 		{
 			try
@@ -263,6 +273,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 			}
 
 		}
-		
+
 	}
 }

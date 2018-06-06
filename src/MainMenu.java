@@ -100,7 +100,7 @@ public class MainMenu extends JFrame implements ActionListener
 		}
 		if(e.getSource() == rules)
 		{ 
-			Rules r = new Rules();
+			//Rules r = new Rules();
 		}
 	}
 	

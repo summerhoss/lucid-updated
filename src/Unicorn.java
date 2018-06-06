@@ -13,6 +13,12 @@ public class Unicorn extends Model
 	
 	public void collidedAction() 
 	{
-
+		
+	}
+	
+	public void walk()
+	{
+		x--;
+		System.out.println("walking");
 	}
 }
