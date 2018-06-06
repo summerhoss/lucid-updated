@@ -88,9 +88,8 @@ public class Level
 		lucy = new Player(825, 588, 37, 75, "char");
 		gameObjects.add(lucy);
 		gameObjects.add(new Gem(350, 375, 25, 25, "gemState1"));
-		gameObjects.add(new Unicorn(650,140,75,75,"badUni"));
 		//gameObjects.add(new Seed(150, 335, 15, 15, "seed"));
-		gameObjects.add(new Unicorn(800, 588, 75, 75, "Unicorn"));
+		gameObjects.add(new Unicorn(400, 588, 75, 75, "oppUnicorn"));
 		gameObjects.add(new Seed(675, 200, 15, 15, "seed"));
 		
 		//create platforms

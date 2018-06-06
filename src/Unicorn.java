@@ -18,7 +18,6 @@ public class Unicorn extends Model
 	
 	public void walk()
 	{
-		x--;
-		System.out.println("walking");
+		x++;
 	}
 }

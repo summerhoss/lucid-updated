@@ -36,6 +36,7 @@ public class Player extends Model implements KeyListener {
 	private boolean teleport;
 	private int teleX;
 	private int teleY;
+	private boolean moveable;
 	
 	public Player(int x, int y, int w, int h, String image)
 	{
@@ -74,6 +75,7 @@ public class Player extends Model implements KeyListener {
 		teleport = false;
 		teleX = 0;
 		teleY = 0;
+		moveable = true;
 	}
 
 	public String getCount()
@@ -189,7 +191,7 @@ public class Player extends Model implements KeyListener {
 					{
 						if(seed == 1)
 						{
-							//((Flower)m).grow(seed);
+							((Flower)m).grow(seed);
 							seed = -1;
 						}
 					}
@@ -453,5 +455,10 @@ public class Player extends Model implements KeyListener {
 	public void setUni(Boolean b)
 	{
 		withUni = b;
+	}
+	
+	public void isMoveable()
+	{
+		
 	}
 }

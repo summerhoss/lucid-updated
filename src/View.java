@@ -158,8 +158,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 		for(int i = 0; i < level.getGameObjects().size(); i++)
 		{
 			m = level.getGameObjects().get(i);
-			//if(m.exists())
-			g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
+			if(m.exists())
+				g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
 			if(m instanceof Player)
 				countLabel.setText(((Player) m).getCount());
 		}
@@ -186,15 +186,24 @@ public class View extends JFrame implements ActionListener, KeyListener
 				{
 					((Player)m).run(level);
 				}
+				else if (m instanceof Unicorn && level.getLevelNum() == 1 && level.getPlayer().withUni())
+				{
+					dialogue.setVisible(true);
+					level.getPlayer().setUni(false);
+				}
 				else if(m instanceof Unicorn && level.getLevelNum() == 2 && !level.getCutPlayed())
 				{
-					if(m.getX() > 400)
+					if(m.getX() < 700)
 					{
 						((Unicorn)m).walk();
 						repaint();
 					}
 					else
+					{
 						m.setImage("badUni");
+						m.toggleExist();
+					}
+					
 				}
 				else
 				{
