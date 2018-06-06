@@ -96,12 +96,12 @@ public class Level
 		gameObjects.add(new Platform(650,215,75,37,"blackplat"));
 		gameObjects.add(new Cloud(375,245,75,50,"cloud",400,500));
 		gameObjects.add(new Platform(300,150,75,37,"blackplat"));
-		gameObjects.add(new Portal(300,100,75,50,"none",825,588,0));
+		//gameObjects.add(new Portal(300,100,75,50,"none",825,588,0));
 		gameObjects.add(new Platform(325,400,75,37,"blackplat"));
-		gameObjects.add(new Platform(0,200,100,37,"blackplat"));
+		gameObjects.add(new Platform(0,200,150,37,"blackplat")); //prev value: 100
 		gameObjects.add(new Platform(225,500,75,37,"blackplat"));
 		gameObjects.add(new Platform(175,350,37,37,"blackplat"));
-		gameObjects.add(new Portal(100,200,75,100,"none",50,225,0));
+		//gameObjects.add(new Portal(100,200,75,100,"none",50,225,0));
 		gameObjects.add(new Portal(0,0,100,200,"gemState1",0,0,3));
 		
 		//create ground

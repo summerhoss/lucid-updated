@@ -195,11 +195,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 		}
 		else
 		{
-			level.setLevelNum(2);
-			level.createLevel2();
-			this.setLevel(level);
-			level.setComplete(false);
-			/*
 			if(level.getLevelNum() == 1)
 			{
 				level.setLevelNum(2);
@@ -214,7 +209,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 				this.setLevel(level);
 				level.setComplete(false);
 			}
-			*/
 		}
 		repaint();
 

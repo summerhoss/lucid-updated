@@ -272,27 +272,24 @@ public class Player extends Model implements KeyListener {
 		//System.out.println(l.getLevelNum());
 		if(l.getLevelNum() == 1 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
-			this.setLocation(800, 75);
-			//this.setLocation(100, 575);
+			//this.setLocation(800, 75);
+			this.setLocation(100, 575);
 		}
 		else if(l.getLevelNum() == 2 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
 			this.setLocation(825, 575);
 		}
-		else if(l.getLevelNum() == 2 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
+		else if(l.getLevelNum() == 3 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
-			JOptionPane.showMessageDialog(new JFrame(), "LUCY", "WAKE UP!",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(new JFrame(), "WAKE UP LUCY!", "",JOptionPane.PLAIN_MESSAGE);
+			System.exit(0);
 		}
 
-		if(nextLevel == 2)
+		if(nextLevel == 2 || nextLevel == 3)
 		{
 			l.setComplete(true);
 			//System.out.println(l.isComplete());
 			//this.setLocation(100, 575);
-		}
-		else if(nextLevel == 3)
-		{
-			l.setComplete(true);
 		}
 		
 		if(teleport)
@@ -314,13 +311,6 @@ public class Player extends Model implements KeyListener {
 		{
 			this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist+1));
 		}
-
-		/*
-		 * if(top || left || right || bottom)
-		{
-			jumping = false;
-		}
-		 */
 
 		//Determine falling and jumping
 		if(!top && !jumping)
