@@ -57,7 +57,7 @@ public class Level
 		gameObjects.add(new Platform(300, 500, 75, 75, "lolli"));
 		gameObjects.add(new Platform(150, 400, 100, 100, "lolli2"));
 		gameObjects.add(new Platform(100, 325, 37, 37, "platform"));
-		gameObjects.add(new Platform(37, 250, 37, 37, "platform"));
+		//gameObjects.add(new Platform(37, 250, 37, 37, "platform"));
 		gameObjects.add(new Platform(175, 200, 37, 37, "platform"));
 		gameObjects.add(new Platform(0, 150, 75, 37, "platform"));
 		gameObjects.add(new Seed(50, 135, 15, 15, "seed"));
@@ -88,9 +88,8 @@ public class Level
 		lucy = new Player(825, 588, 37, 75, "char");
 		gameObjects.add(lucy);
 		gameObjects.add(new Gem(350, 375, 25, 25, "gemState1"));
-		//gameObjects.add(new Seed(150, 335, 15, 15, "seed"));
 		gameObjects.add(new Unicorn(400, 588, 75, 75, "oppUnicorn"));
-		gameObjects.add(new Seed(675, 200, 15, 15, "seed"));
+		gameObjects.add(new Seed(680, 200, 15, 15, "seed"));
 		
 		//create platforms
 		gameObjects.add(new Platform(515,475,75,37,"blackplat"));
@@ -99,15 +98,14 @@ public class Level
 		gameObjects.add(new Platform(650,215,75,37,"blackplat"));
 		gameObjects.add(new Cloud(375,245,75,50,"cloud",400,500));
 		gameObjects.add(new Platform(300,150,75,37,"blackplat"));
-		//gameObjects.add(new Portal(300,100,75,50,"none",825,588,0));
+		gameObjects.add(new Portal(300,100,75,50,"none",825,588,0));
 		gameObjects.add(new Platform(325,400,75,37,"blackplat"));
-		gameObjects.add(new Platform(0,200,150,37,"blackplat")); //prev value: 100
+		gameObjects.add(new Platform(0,200,115,37,"blackplat")); //prev value: 100
 		gameObjects.add(new Platform(225,500,75,37,"blackplat"));
-		gameObjects.add(new Platform(175,350,37,37,"blackplat"));
-		//gameObjects.add(new Portal(100,200,75,100,"none",50,225,0));
-		gameObjects.add(new Portal(0,0,100,200,"gemState1",0,0,3));
-		gameObjects.add(new Flower(175, 335, 37, 15, "dirt", 150, 250, 75, 50, "crazy_flower"));
-		gameObjects.add(new Portal(100,200,75,100,"none",50,237,0));
+		gameObjects.add(new Platform(175,350,75,37,"blackplat"));
+		gameObjects.add(new Portal(115,201,49,150,"none",50,225,0));
+		gameObjects.add(new Portal(0,0,75,200,"none",0,0,3));
+		gameObjects.add(new Flower(200, 335, 37, 15, "dirt", 175, 250, 80, 60, "crazy_flower"));
 		
 		//create ground
 		for(int x = 400; x < 900; x += 50)

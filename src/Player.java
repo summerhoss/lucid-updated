@@ -283,7 +283,7 @@ public class Player extends Model implements KeyListener {
 		}
 		else if(l.getLevelNum() == 3 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 		{
-			JOptionPane.showMessageDialog(new JFrame(), "WAKE UP LUCY!", "",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(new JFrame(), "WAKE UP!", "The End",JOptionPane.PLAIN_MESSAGE);
 			System.exit(0);
 		}
 

@@ -32,6 +32,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image wrist;
 	private Image crazy_flower;
 	private Image badUni;
+	private Image control_sign;
 
 	public View(Level lv)
 	{
@@ -75,6 +76,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 		crazy_flower = crazyFlowerIcon.getImage();
 		ImageIcon badUniIcon = new ImageIcon(cldr.getResource("badUni.png"));
 		badUni = badUniIcon.getImage();
+		ImageIcon control_signIcon = new ImageIcon(cldr.getResource("control_sign.png"));
+		control_sign = control_signIcon.getImage();
 
 		//unicorn dialogue
 		talk = new JLabel("Hi! I'm Bob the Unicorn.");
@@ -145,7 +148,10 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(bg2, 0, 0, guiWidth, guiHeight, null);
 			g.drawImage(wrist, 675, 575, 35, 105, null);
 			g.drawImage(gem,325,125,25,25,null);
-			g.drawImage(sign,50,150,50,50,null);
+			g.drawImage(control_sign,40,150,50,50,null);
+			
+			if(level.getPlayer().hasSeed() == -1)
+				g.drawImage(vine, 195, 275, 30, 75, null);
 		}
 		else if(level.getLevelNum() == 3)
 		{
@@ -193,7 +199,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 				}
 				else if(m instanceof Unicorn && level.getLevelNum() == 2 && !level.getCutPlayed())
 				{
-					if(m.getX() < 700)
+					if(m.getX() < 725)
 					{
 						((Unicorn)m).walk();
 						repaint();

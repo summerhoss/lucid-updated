@@ -6,7 +6,8 @@ public class Controller
 	
 	public static void main(String[] args)
 	{
-		MainMenu menu = new MainMenu();
+		new MainMenu();
+		//MainMenu menu = new MainMenu();
 	//	Controller c = new Controller();		
 	}
 	
