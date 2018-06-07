@@ -31,13 +31,13 @@ public class Player extends Model implements KeyListener {
 	private Image lStep1;
 	private Image lStep2;
 	private int stepCounter;
-	private boolean withUni;
+	private int withUni;
 	private int nextLevel;
 	private boolean teleport;
 	private int teleX;
 	private int teleY;
 	private boolean moveable;
-	
+
 	public Player(int x, int y, int w, int h, String image)
 	{
 		super(x,y,w,h,image);
@@ -70,7 +70,7 @@ public class Player extends Model implements KeyListener {
 		left = false;
 		right = false;
 		stepCounter = 0;
-		withUni = false;
+		withUni = 0;
 		nextLevel = 0;
 		teleport = false;
 		teleX = 0;
@@ -186,7 +186,7 @@ public class Player extends Model implements KeyListener {
 					{
 						this.push();
 					}
-					
+
 					if(m instanceof Flower)
 					{
 						if(seed == 1)
@@ -212,7 +212,8 @@ public class Player extends Model implements KeyListener {
 				}
 				else if(m instanceof Unicorn)
 				{
-					setUni(true);
+					if(withUni == 0)
+						setUni(1);
 				}
 				else if(m instanceof Portal)
 				{
@@ -270,95 +271,99 @@ public class Player extends Model implements KeyListener {
 		//System.out.println("top = " + top + ", bottom = " + bottom + ", right = " + right + ", left = " + left);
 		changeImage();
 		//Set booleans and manage position based on collisions calculated in manageCollisions
-
-		//System.out.println(l.getLevelNum());
-		if(l.getLevelNum() == 1 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
+		if(moveable)
 		{
-			//this.setLocation(800, 75);
-			this.setLocation(100, 575);
-		}
-		else if(l.getLevelNum() == 2 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
-		{
-			this.setLocation(825, 575);
-		}
-		else if(l.getLevelNum() == 3 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
-		{
-			JOptionPane.showMessageDialog(new JFrame(), "WAKE UP LUCY!", "",JOptionPane.PLAIN_MESSAGE);
-			System.exit(0);
-		}
-
-		if(nextLevel == 2 || nextLevel == 3)
-		{
-			l.setComplete(true);
-			//System.out.println(l.isComplete());
-			//this.setLocation(100, 575);
-		}
-		
-		if(teleport)
-		{
-			this.setLocation(teleX,teleY);
-			teleport = false;
-			jumping = false;
-		}
-		
-		if(top)
-		{
-			falling = false;
-		}
-		if(top || bottom)
-		{
-			jumping = false;
-		}
-		if(top && !(left || right || bottom))
-		{
-			this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist+1));
-		}
-
-		//Determine falling and jumping
-		if(!top && !jumping)
-		{
-			//System.out.println("Falling? " + falling);
-			falling = true;
-		}
-		else if(top && upPressed && !jumping && !falling)
-		{
-			if(!jumping && !falling)
+			//System.out.println(l.getLevelNum());
+			if(l.getLevelNum() == 1 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
 			{
-				setTarget = true;
+				//this.setLocation(800, 75);
+				this.setLocation(100, 575);
 			}
-			jumping = true;
-		}
+			else if(l.getLevelNum() == 2 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
+			{
+				this.setLocation(825, 575);
+			}
+			else if(l.getLevelNum() == 3 && (this.getMaxX() < 0 || this.getX() > 900 || this.getMaxY() < -200 || this.getY() > 700))
+			{
+				JOptionPane.showMessageDialog(new JFrame(), "WAKE UP LUCY!", "",JOptionPane.PLAIN_MESSAGE);
+				System.exit(0);
+			}
 
-		//Jumping and falling
-		if(falling)
-		{
-			this.fall();
-		}
-		if(jumping)
-		{
-			this.jump();
-		}
+			if(nextLevel == 2 || nextLevel == 3)
+			{
+				l.setComplete(true);
+				//System.out.println(l.isComplete());
+				//this.setLocation(100, 575);
+			}
 
-		//Adjust left and right position in the air and on the ground
-		if(leftPressed && (falling || jumping) && !right)
-		{
-			this.setLocation((int)(this.getX()-2), (int)(this.getY()));
-		}
-		else if(rightPressed && (falling || jumping) && !left)
-		{
-			this.setLocation((int)(this.getX()+2), (int)(this.getY()));
-		}
-		else if(top && leftPressed && !right)
-		{
-			this.setLocation((int)(this.getX()-4), (int)(this.getY()));
-		}
-		else if(top && rightPressed && !left)
-		{
-			this.setLocation((int)(this.getX()+4), (int)(this.getY()));
-		}
+			if(teleport)
+			{
+				this.setLocation(teleX,teleY);
+				teleport = false;
+				jumping = false;
+			}
 
-		if(leftPressed || rightPressed)
-			stepCounter++;
+			if(top)
+			{
+				falling = false;
+			}
+			if(top || bottom)
+			{
+				jumping = false;
+			}
+			if(top && !(left || right || bottom))
+			{
+				this.setLocation((int)(this.getX()), (int)(this.getY()+remainingDist+1));
+			}
+
+			//Determine falling and jumping
+			if(!top && !jumping)
+			{
+				//System.out.println("Falling? " + falling);
+				falling = true;
+			}
+			else if(top && upPressed && !jumping && !falling)
+			{
+				if(!jumping && !falling)
+				{
+					setTarget = true;
+				}
+				jumping = true;
+			}
+
+			//Jumping and falling
+			if(falling)
+			{
+				this.fall();
+			}
+			if(jumping)
+			{
+				this.jump();
+			}
+
+			//Adjust left and right position in the air and on the ground
+
+			if(leftPressed && (falling || jumping) && !right)
+			{
+				this.setLocation((int)(this.getX()-2), (int)(this.getY()));
+			}
+			else if(rightPressed && (falling || jumping) && !left)
+			{
+				this.setLocation((int)(this.getX()+2), (int)(this.getY()));
+			}
+			else if(top && leftPressed && !right)
+			{
+				this.setLocation((int)(this.getX()-4), (int)(this.getY()));
+			}
+			else if(top && rightPressed && !left)
+			{
+				this.setLocation((int)(this.getX()+4), (int)(this.getY()));
+			}
+
+			if(leftPressed || rightPressed)
+				stepCounter++;
+
+		}
 	}
 
 	public void push()
@@ -447,18 +452,28 @@ public class Player extends Model implements KeyListener {
 		}
 	}
 
-	public boolean withUni()
+	public int withUni()
 	{
 		return withUni;
 	}
 
-	public void setUni(Boolean b)
+	public void setUni(int i)
 	{
-		withUni = b;
+		withUni = i;
 	}
-	
-	public void isMoveable()
+
+	public boolean isMoveable()
 	{
-		
+		return moveable;
+	}
+
+	public void setMoveable(boolean b)
+	{
+		moveable = b;
+	}
+
+	public void notRightPressed()
+	{
+		rightPressed = false;
 	}
 }
