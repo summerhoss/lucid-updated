@@ -37,7 +37,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 	public View(Level lv)
 	{
 		panel = new JPanel();
-		dialogue = new JFrame("Bob the Unicorn");
+		dialogue = new JFrame("Hi! I'm "
+				+ "Bob the Unicorn");
 		level = lv;
 
 		//close window
@@ -156,7 +157,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 		else if(level.getLevelNum() == 3)
 		{
 			g.drawImage(bg2,0,0,guiWidth,guiHeight,null);
-			
+
 		}
 
 		//platforms
@@ -192,15 +193,26 @@ public class View extends JFrame implements ActionListener, KeyListener
 				{
 					((Player)m).run(level);
 				}
-				else if (m instanceof Unicorn && level.getLevelNum() == 1 && level.getPlayer().withUni())
+				else if (m instanceof Unicorn && level.getLevelNum() == 1 && level.getPlayer().withUni() > 0)
 				{
-					dialogue.setVisible(true);
-					level.getPlayer().setUni(false);
+					if(level.getPlayer().withUni() == 1)
+					{
+						dialogue.setVisible(true);
+						level.getPlayer().notRightPressed();
+					}
+					level.getPlayer().setUni(-1);	
+
 				}
 				else if(m instanceof Unicorn && level.getLevelNum() == 2 && !level.getCutPlayed())
 				{
-					if(m.getX() < 725)
+					if(m.getX() == 724)
 					{
+						((Unicorn)m).walk();
+						level.getPlayer().setMoveable(true);
+					}
+					else if(m.getX() < 725)
+					{
+						level.getPlayer().setMoveable(false);
 						((Unicorn)m).walk();
 						repaint();
 					}
@@ -209,7 +221,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 						m.setImage("badUni");
 						m.toggleExist();
 					}
-					
+
 				}
 				else
 				{
@@ -267,13 +279,6 @@ public class View extends JFrame implements ActionListener, KeyListener
 		case KeyEvent.VK_UP:
 			level.getPlayer().setFalse(Moveable.U);
 			break;
-		case KeyEvent.VK_SPACE:
-		{
-			if(level.getPlayer().withUni())
-				dialogue.setVisible(true);
-			level.getPlayer().setUni(false);
-			break;
-		}
 
 		}
 
