@@ -9,8 +9,8 @@ import javax.swing.JOptionPane;
 
 public class Player extends Model implements KeyListener {
 
-	private int count;
-	private int seed;
+	private int gemCount;
+	private int seedCount;
 	private boolean leftPressed;
 	private boolean rightPressed;
 	private boolean upPressed;
@@ -55,7 +55,8 @@ public class Player extends Model implements KeyListener {
 		lStep1 = lStep1Icon.getImage();
 		ImageIcon lStep2Icon = new ImageIcon(cldr.getResource("charl2.png"));
 		lStep2 = lStep2Icon.getImage();
-		count = 0;
+		gemCount = 0;
+		seedCount = 0;
 		leftPressed = false;
 		rightPressed = false;
 		upPressed = false;
@@ -78,19 +79,36 @@ public class Player extends Model implements KeyListener {
 		moveable = true;
 	}
 
-	public String getCount()
+	public String getGemCount()
 	{
-		return "Count: " + Integer.toString(count);
+		return "Gem Count: " + Integer.toString(gemCount);
+	}
+	
+	public String getSeedCount()
+	{
+		return "Seed Count: " + Integer.toString(seedCount);
+	}
+	
+	public String resetSeedCount()
+	{
+		return "Seed Count: 0";
 	}
 
-	public void incrementCount()
+	public void incrementGemCount()
 	{
-		count++;
+		gemCount++;
+		gemCount++;
+		gemCount++;
 	}
-
-	public int hasSeed()	
+	
+	public void incrementSeedCount()
 	{
-		return seed;
+		seedCount++;
+	}
+	
+	public int hasSeed()
+	{
+		return seedCount;
 	}
 
 	public void changeImage()
@@ -189,10 +207,10 @@ public class Player extends Model implements KeyListener {
 
 					if(m instanceof Flower)
 					{
-						if(seed == 1)
+						if(seedCount == 1)
 						{
-							((Flower)m).grow(seed);
-							seed = -1;
+							((Flower)m).grow(seedCount);
+							seedCount = -1;
 						}
 					}
 				}
@@ -200,15 +218,13 @@ public class Player extends Model implements KeyListener {
 				{
 					//m.collidedAction();
 					remList.add((Model)m);
-					incrementCount();
-					incrementCount();
-					incrementCount();
+					incrementGemCount();
 				}
 				else if(m instanceof Seed)
 				{
 					remList.add((Model)m);
 					m.collidedAction();
-					seed++;
+					incrementSeedCount();
 				}
 				else if(m instanceof Unicorn)
 				{
@@ -224,7 +240,6 @@ public class Player extends Model implements KeyListener {
 						teleX = ((Portal)m).getNewX();
 						teleY = ((Portal)m).getNewY();
 					}
-					//System.out.println("collided with portal");
 				}
 				else
 				{

@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -7,6 +8,7 @@ import java.io.*;
 import sun.audio.*;
 
 import javax.swing.*;
+
 
 public class View extends JFrame implements ActionListener, KeyListener
 {
@@ -22,7 +24,8 @@ public class View extends JFrame implements ActionListener, KeyListener
 	private Image sign;
 	private Image seed;
 	private Timer timer;
-	private JLabel countLabel;
+	private JLabel gemCountLabel;
+	private JLabel seedCountLabel;
 	private Image gem;
 	private JPanel panel;
 	private JFrame dialogue;
@@ -88,8 +91,13 @@ public class View extends JFrame implements ActionListener, KeyListener
 		dialogue.pack();
 
 		//counters
-		countLabel = new JLabel("Count: 0");
-		panel.add(countLabel);
+		gemCountLabel = new JLabel("Gem Count: 0");
+		panel.add(gemCountLabel);
+		gemCountLabel.setForeground(Color.BLUE);
+		
+		seedCountLabel = new JLabel("Seed Count: 0");
+		panel.add(seedCountLabel);
+		seedCountLabel.setForeground(Color.BLUE);
 
 		//initialize and start ]=
 		timer = new Timer(10, this);
@@ -168,9 +176,16 @@ public class View extends JFrame implements ActionListener, KeyListener
 			if(m.exists())
 				g.drawImage(((Model)m).getType(), (int)((Model)m).getX(), (int)((Model)m).getY(), (int)((Model)m).getWidth(), (int)((Model)m).getHeight(), null);
 			if(m instanceof Player)
-				countLabel.setText(((Player) m).getCount());
+			{
+				gemCountLabel.setText(((Player) m).getGemCount());
+				if(((Player)m).hasSeed() == -1)
+					seedCountLabel.setText(((Player)m).resetSeedCount());
+				else
+					seedCountLabel.setText(((Player) m).getSeedCount());
+			}
 		}
-		g.drawString(countLabel.getText(), 25, 75);
+		g.drawString(gemCountLabel.getText(), 25, 75);
+		g.drawString(seedCountLabel.getText(), 25, 100);
 	}
 
 	/**
