@@ -61,9 +61,9 @@ public class Level
 		gameObjects.add(new Platform(175, 200, 37, 37, "platform"));
 		gameObjects.add(new Platform(0, 150, 75, 37, "platform"));
 		gameObjects.add(new Seed(50, 135, 15, 15, "seed"));
-		gameObjects.add(new Cloud(212, 200, 75, 50, "cloud", 212, 300));
-		gameObjects.add(new Platform(375, 225, 75, 37, "platform"));
-		gameObjects.add(new Flower(400, 210, 40, 15, "dirt", 375, 125, 75, 50, "flower"));
+		gameObjects.add(new Cloud(212, 300, 75, 50, "cloud", 212, 300));
+		gameObjects.add(new Platform(375, 325, 75, 37, "platform"));
+		gameObjects.add(new Flower(400, 310, 40, 15, "dirt", 375, 205, 75, 50, "flower"));
 		gameObjects.add(new Unicorn(800, 588, 75, 75, "Unicorn"));
 		gameObjects.add(new Platform(663, 525, 75, 37, "treeplat"));
 		gameObjects.add(new Cloud(650, 375, 75, 50, "cloud", 550, 675));
@@ -74,7 +74,12 @@ public class Level
 		//create characters and objects
 		lucy = new Player(100, 575, 37, 75, "char");
 		gameObjects.add(lucy);
-		gameObjects.add(new Gem(400, 100, 25, 25, "gemState1"));
+		gameObjects.add(new Gem(330, 450, 25, 25, "gemState1"));
+		gameObjects.add(new Gem(400, 50, 25, 25, "gemState1"));
+		gameObjects.add(new Gem(105, 300, 25, 25, "gemState1"));
+		gameObjects.add(new Gem(180, 175, 25, 25, "gemState1"));
+		gameObjects.add(new Gem(750, 625, 25, 25, "gemState1"));
+		gameObjects.add(new Gem(800, 300, 25, 25, "gemState1"));
 		gameObjects.add(new Portal(870,115,25,25,"none",0,0,2));
 	}
 
@@ -88,6 +93,8 @@ public class Level
 		lucy = new Player(825, 588, 37, 75, "char");
 		gameObjects.add(lucy);
 		gameObjects.add(new Gem(350, 375, 25, 25, "gemState1"));
+		gameObjects.add(new Gem(665, 470, 25, 25, "gemState1"));
+		gameObjects.add(new Gem(540, 450, 25, 25, "gemState1"));
 		gameObjects.add(new Unicorn(400, 588, 75, 75, "oppUnicorn"));
 		gameObjects.add(new Seed(680, 200, 15, 15, "seed"));
 		

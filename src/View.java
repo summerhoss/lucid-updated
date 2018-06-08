@@ -150,7 +150,7 @@ public class View extends JFrame implements ActionListener, KeyListener
 			g.drawImage(stick2, 190, 475, 40, 200, null);
 
 			if(level.getPlayer().hasSeed() == -1)
-				g.drawImage(vine, 395, 150, 30, 75, null);
+				g.drawImage(vine, 395, 250, 30, 75, null);
 		}
 		else if(level.getLevelNum() == 2)
 		{
